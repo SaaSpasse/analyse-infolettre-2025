@@ -2548,6 +2548,153 @@
       document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
     }
 
+    // === AUDIO FEEDBACK SYSTEM ===
+    let audioCtx = null;
+    let soundEnabled = false;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      return audioCtx;
+    }
+
+    // Générateur de sons 8-bit
+    const sounds = {
+      click: () => {
+        if (!soundEnabled) return;
+        const ctx = initAudio();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(800, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.05);
+        gain.gain.setValueAtTime(0.1, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.05);
+      },
+
+      slide: (value) => {
+        if (!soundEnabled) return;
+        const ctx = initAudio();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'triangle';
+        // Pitch basé sur la valeur du slider
+        const freq = 200 + (value * 5);
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.05, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.03);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.03);
+      },
+
+      blip: (pitch = 1) => {
+        if (!soundEnabled) return;
+        const ctx = initAudio();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600 * pitch, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(800 * pitch, ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.08);
+      },
+
+      toggle: (on) => {
+        if (!audioCtx) initAudio();
+        const ctx = audioCtx;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'square';
+        if (on) {
+          osc.frequency.setValueAtTime(400, ctx.currentTime);
+          osc.frequency.setValueAtTime(600, ctx.currentTime + 0.05);
+          osc.frequency.setValueAtTime(800, ctx.currentTime + 0.1);
+        } else {
+          osc.frequency.setValueAtTime(600, ctx.currentTime);
+          osc.frequency.setValueAtTime(400, ctx.currentTime + 0.05);
+        }
+        gain.gain.setValueAtTime(0.1, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.12);
+      }
+    };
+
+    // Toggle button pour le son
+    const soundToggle = document.createElement('button');
+    soundToggle.id = 'sound-toggle';
+    soundToggle.innerHTML = '<i data-lucide="volume-x" style="width: 16px; height: 16px;"></i>';
+    soundToggle.title = 'Activer les sons';
+    soundToggle.setAttribute('aria-label', 'Activer les sons');
+    soundToggle.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 40px;
+      height: 40px;
+      background: white;
+      color: var(--dark);
+      border: 2px solid var(--dark);
+      box-shadow: 2px 2px 0px var(--dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: all 0.1s;
+      font-size: 12px;
+    `;
+    document.body.appendChild(soundToggle);
+    lucide.createIcons();
+
+    soundToggle.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      sounds.toggle(soundEnabled);
+      if (soundEnabled) {
+        soundToggle.innerHTML = '<i data-lucide="volume-2" style="width: 16px; height: 16px;"></i>';
+        soundToggle.style.background = 'var(--purple)';
+        soundToggle.style.color = 'white';
+        soundToggle.title = 'Désactiver les sons';
+        soundToggle.setAttribute('aria-label', 'Désactiver les sons');
+      } else {
+        soundToggle.innerHTML = '<i data-lucide="volume-x" style="width: 16px; height: 16px;"></i>';
+        soundToggle.style.background = 'white';
+        soundToggle.style.color = 'var(--dark)';
+        soundToggle.title = 'Activer les sons';
+        soundToggle.setAttribute('aria-label', 'Activer les sons');
+      }
+      lucide.createIcons();
+    });
+
+    // Ajouter sons aux boutons de nav
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => sounds.click());
+    });
+
+    // Son sur le slider WPM
+    const wpmSlider = document.getElementById('wpm-slider');
+    if (wpmSlider) {
+      wpmSlider.addEventListener('input', (e) => sounds.slide(e.target.value));
+    }
+
+    // Sons sur les thèmes (pitch différent par thème)
+    document.querySelectorAll('.theme-bar').forEach((bar, index) => {
+      bar.addEventListener('click', () => sounds.blip(0.8 + (index * 0.1)));
+    });
+
     // SaaSpals music easter egg
     let musicBtnShown = false;
     let saaspalsIframe = null;

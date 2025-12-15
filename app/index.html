@@ -2533,6 +2533,7 @@
     });
 
     function triggerSkiAnimation() {
+      sounds.weee();
       const container = document.createElement('div');
       container.innerHTML = `
         <span class="skier">⛷️</span>
@@ -2608,6 +2609,32 @@
         gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
         osc.start(ctx.currentTime);
         osc.stop(ctx.currentTime + 0.08);
+      },
+
+      weee: () => {
+        if (!soundEnabled) return;
+        const ctx = initAudio();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'sine';
+        // Descente de pitch comme une descente de ski
+        osc.frequency.setValueAtTime(1200, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.8);
+        // Petit vibrato pour le fun
+        const lfo = ctx.createOscillator();
+        const lfoGain = ctx.createGain();
+        lfo.connect(lfoGain);
+        lfoGain.connect(osc.frequency);
+        lfo.frequency.value = 8;
+        lfoGain.gain.value = 50;
+        lfo.start(ctx.currentTime);
+        lfo.stop(ctx.currentTime + 0.8);
+        gain.gain.setValueAtTime(0.12, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.8);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.8);
       },
 
       toggle: (on) => {

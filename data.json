@@ -1,0 +1,438 @@
+{
+  "meta": {
+    "projet": "Rétrospective éditoriale SaaSpasse 2025",
+    "description": "Analyse thématique, sémantique et statistique des éditoriaux de l'infolettre SaaSpasse publiés en 2025",
+    "source": "/Users/francoislanthiernadeau/Claude Code/posts-infolettre/editoriaux/",
+    "date_analyse": "2025-12-14",
+    "disclaimer": "Cette analyse porte uniquement sur le contenu éditorial de l'infolettre, excluant les sections promotionnelles et nouvelles en fin d'édito."
+  },
+
+  "bloc1_stats_base": {
+    "total_editoriaux": 49,
+    "total_mots": 66762,
+    "moyenne_mots_par_edito": 1362,
+    "mediane_mots": 1390,
+    "edito_plus_long": {
+      "titre": "Skrrt skrrt sur un 10 cents",
+      "date": "2025-10-24",
+      "mots": 3000
+    },
+    "edito_plus_court": {
+      "titre": "Home Run",
+      "date": "2025-09-12",
+      "mots": 286
+    },
+    "temps_frappe_estimé": {
+      "wpm_40_debutant": {
+        "heures": 27.8,
+        "jours_travail": 3.5
+      },
+      "wpm_60_moyen": {
+        "heures": 18.5,
+        "jours_travail": 2.3
+      },
+      "wpm_80_rapide": {
+        "heures": 13.9,
+        "jours_travail": 1.7
+      },
+      "note": "Slider interactif prévu dans l'app pour ajuster le WPM"
+    },
+    "mots_par_mois": [
+      {"mois": "01", "nom": "Janvier", "editoriaux": 4, "mots": 6231, "moyenne": 1558},
+      {"mois": "02", "nom": "Février", "editoriaux": 4, "mots": 5822, "moyenne": 1456},
+      {"mois": "03", "nom": "Mars", "editoriaux": 4, "mots": 5056, "moyenne": 1264},
+      {"mois": "04", "nom": "Avril", "editoriaux": 4, "mots": 6538, "moyenne": 1635},
+      {"mois": "05", "nom": "Mai", "editoriaux": 5, "mots": 7187, "moyenne": 1437},
+      {"mois": "06", "nom": "Juin", "editoriaux": 4, "mots": 5945, "moyenne": 1486},
+      {"mois": "07", "nom": "Juillet", "editoriaux": 4, "mots": 2746, "moyenne": 687},
+      {"mois": "08", "nom": "Août", "editoriaux": 4, "mots": 3534, "moyenne": 884},
+      {"mois": "09", "nom": "Septembre", "editoriaux": 4, "mots": 3215, "moyenne": 804},
+      {"mois": "10", "nom": "Octobre", "editoriaux": 5, "mots": 8703, "moyenne": 1741},
+      {"mois": "11", "nom": "Novembre", "editoriaux": 4, "mots": 7114, "moyenne": 1779},
+      {"mois": "12", "nom": "Décembre", "editoriaux": 3, "mots": 3874, "moyenne": 1291}
+    ],
+    "pattern_saisonnier": "Creux estival (juillet-septembre) avec éditos plus courts, retour en force à l'automne"
+  },
+
+  "bloc2_themes_obsessions": {
+    "palmares_sujets": [
+      {"rang": 1, "theme": "AI/IA", "mentions": 775, "note": "L'obsession de l'année"},
+      {"rang": 2, "theme": "Marketing/Contenu", "mentions": 632, "note": "Normal pour une newsletter"},
+      {"rang": 3, "theme": "Startup/SaaS", "mentions": 389, "note": "Le pain quotidien"},
+      {"rang": 4, "theme": "Produit/Tech", "mentions": 316},
+      {"rang": 5, "theme": "Équipe/RH", "mentions": 264, "note": "Surprenant, plus que croissance!"},
+      {"rang": 6, "theme": "Croissance/Métriques", "mentions": 180},
+      {"rang": 7, "theme": "Québec/Local", "mentions": 156, "note": "Fierté locale"},
+      {"rang": 8, "theme": "Fondateurs/Entrepreneurs", "mentions": 149},
+      {"rang": 9, "theme": "Santé mentale/Bien-être", "mentions": 58, "note": "Présent mais discret"}
+    ],
+    "detail_ai": {
+      "ai": 540,
+      "chatgpt": 84,
+      "claude": 61,
+      "ia": 43,
+      "openai": 19,
+      "llm": 16,
+      "anthropic": 6,
+      "gpt": 4
+    },
+    "ai_par_mois": [
+      {"mois": "01", "mentions": 33},
+      {"mois": "02", "mentions": 69},
+      {"mois": "03", "mentions": 55},
+      {"mois": "04", "mentions": 110, "note": "Peak #1"},
+      {"mois": "05", "mentions": 101},
+      {"mois": "06", "mentions": 92},
+      {"mois": "07", "mentions": 23, "note": "Creux estival"},
+      {"mois": "08", "mentions": 13, "note": "Creux estival"},
+      {"mois": "09", "mentions": 25},
+      {"mois": "10", "mentions": 134, "note": "Peak #2"},
+      {"mois": "11", "mentions": 61},
+      {"mois": "12", "mentions": 57}
+    ],
+    "saisonnalite_themes": {
+      "janvier": "Fondateurs (solitude, mindset)",
+      "fevrier_mars": "AI monte en puissance",
+      "avril_mai": "AI peak #1 (vertical AI, outils)",
+      "juin": "Marketing/Audience",
+      "juillet_aout": "Creux général (éditos courts)",
+      "septembre": "Croissance (retour de conf, métriques)",
+      "octobre": "AI peak #2 (agents, automatisation)",
+      "novembre": "Vente/Stratégie"
+    },
+    "insight_2026": "Plus de contenu sur go-to-market, ventes, croissance. On ralentit pas sur l'AI."
+  },
+
+  "bloc3_name_drops": {
+    "personnes": {
+      "top_mentions": [
+        {"rang": 1, "nom": "Greg Isenberg", "mentions": 10, "contexte": "Influenceur externe #1"},
+        {"rang": 2, "nom": "Julien Smith", "mentions": 8, "contexte": "Live pod à la Conf"},
+        {"rang": 3, "nom": "Bruno Marchand", "mentions": 6, "contexte": "Fondateur local récurrent"},
+        {"rang": 4, "nom": "Olivier Falardeau", "mentions": 5},
+        {"rang": 5, "nom": "Joëlle", "mentions": 4, "contexte": "Directrice marketing SaaSpasse"},
+        {"rang": 5, "nom": "Eric Pinet", "mentions": 4},
+        {"rang": 5, "nom": "Jean Gab Crevier", "mentions": 4, "note": "PAS de trait d'union entre Jean et Gab"},
+        {"rang": 8, "nom": "Vicky Boudreau", "mentions": 3},
+        {"rang": 8, "nom": "Raff Paquin", "mentions": 3},
+        {"rang": 10, "nom": "Nassim Taleb", "mentions": 2, "contexte": "Référence intellectuelle"},
+        {"rang": 10, "nom": "Phil Lehoux", "mentions": 2, "contexte": "Fondateur Missive", "note": "Personne distincte de Phil Genois"},
+        {"rang": 10, "nom": "Phil Genois", "mentions": 4, "contexte": "Fondateur InputKit", "note": "Aussi écrit Philippe Genois, personne distincte de Phil Lehoux"}
+      ],
+      "disclaimer_top3": "Le top 3 (Greg, Julien, Bruno) ressort beaucoup car impliqués dans la conférence SaaSpasse. Plusieurs éditos étaient sur la conf.",
+      "blague": "Phil Lehoux a battu Nassim Taleb. Let that sink in."
+    },
+    "entreprises_produits": {
+      "tier1_omnipresents": [
+        {"nom": "beehiiv", "mentions": 827, "contexte": "Outil de newsletter"},
+        {"nom": "LinkedIn", "mentions": 208, "contexte": "Canal de distribution"},
+        {"nom": "ChatGPT", "mentions": 84, "contexte": "Outil AI #1 cité"},
+        {"nom": "YouTube", "mentions": 68},
+        {"nom": "Claude", "mentions": 61, "contexte": "L'autre AI"},
+        {"nom": "Missive", "mentions": 39, "contexte": "Outil interne"},
+        {"nom": "Manus", "mentions": 37, "contexte": "Nouveau chouchou"},
+        {"nom": "Notion", "mentions": 35},
+        {"nom": "Superwhisper", "mentions": 33}
+      ],
+      "tier2_recurrents": [
+        {"nom": "Snipcart", "mentions": 22},
+        {"nom": "OpenAI", "mentions": 19},
+        {"nom": "Lovable", "mentions": 18},
+        {"nom": "Slack", "mentions": 17},
+        {"nom": "Duda", "mentions": 12},
+        {"nom": "Lightspeed", "mentions": 11}
+      ],
+      "saas_quebecois": [
+        {"nom": "Snipcart", "mentions": 22},
+        {"nom": "Lightspeed", "mentions": 11},
+        {"nom": "Kimoby", "mentions": 7},
+        {"nom": "Breather", "mentions": 6}
+      ],
+      "outils_ai_nocode": [
+        {"nom": "Manus", "mentions": 37},
+        {"nom": "Superwhisper", "mentions": 33},
+        {"nom": "Lovable", "mentions": 18},
+        {"nom": "Bolt", "mentions": 9},
+        {"nom": "Lindy", "mentions": 8},
+        {"nom": "Cursor", "mentions": 7},
+        {"nom": "n8n", "mentions": 6},
+        {"nom": "Gumloop", "mentions": 5},
+        {"nom": "Granola", "mentions": 5}
+      ],
+      "note_stack_ai": "La majorité de cette stack est en train de migrer vers Claude Code. Voice dictation migré vers Monologue.",
+      "note_saaspasse": "SaaSpasse retiré du palmarès (1047 mentions) - narcissique de se mettre en top position"
+    },
+    "vcs_investisseurs": {
+      "mentionnes": [
+        {"nom": "AQC Capital", "contexte": "Commanditaire Conf, édito août"},
+        {"nom": "Finalta Capital", "contexte": "Commanditaire Conf, édito août"},
+        {"nom": "Telegraph Ventures", "personne": "Étienne Mérineau", "contexte": "Épisode podcast novembre"}
+      ],
+      "observation": "Peu de VCs/investisseurs nommés. Cohérent avec le ton bootstrap-friendly.",
+      "blague": "Ils ne sont pas sur ma cap table, faque ils ne sont pas dans mon top 10."
+    }
+  },
+
+  "bloc4_linguistique": {
+    "niveau_lecture": {
+      "flesch_reading_ease": 63.9,
+      "niveau_scolaire": "Secondaire 3-5",
+      "age_lecture_estime": "12-14 ans",
+      "verdict": "Accessible. Pas du Harvard Business Review, pas du Journal de Montréal. Juste milieu parfait."
+    },
+    "ratio_francais_anglais": {
+      "mots_italiques": 1873,
+      "total_mots": 66653,
+      "ratio_franglais_explicite": "2.8%",
+      "top_termes_anglais": [
+        {"terme": "good", "occurrences": 40},
+        {"terme": "messaging", "occurrences": 12},
+        {"terme": "sure", "occurrences": 10},
+        {"terme": "outreach", "occurrences": 9},
+        {"terme": "workflow", "occurrences": 7},
+        {"terme": "grind", "occurrences": 5},
+        {"terme": "homie", "occurrences": 5},
+        {"terme": "scale", "occurrences": 5},
+        {"terme": "onboarding", "occurrences": 3},
+        {"terme": "deck", "occurrences": 3}
+      ]
+    },
+    "expressions_quebecoises": [
+      {"expression": "pis", "occurrences": 94, "quebecitude": 3},
+      {"expression": "job", "occurrences": 54, "quebecitude": 1},
+      {"expression": "fun", "occurrences": 48, "quebecitude": 1},
+      {"expression": "cool", "occurrences": 38, "quebecitude": 1},
+      {"expression": "genre", "occurrences": 37, "quebecitude": 2},
+      {"expression": "niaiser/niaiseux", "occurrences": 32, "quebecitude": 3},
+      {"expression": "ben", "occurrences": 21, "quebecitude": 3},
+      {"expression": "blonde", "occurrences": 16, "quebecitude": 2},
+      {"expression": "vibe", "occurrences": 15, "quebecitude": 1},
+      {"expression": "pogner", "occurrences": 12, "quebecitude": 3},
+      {"expression": "crinqué", "occurrences": 10, "quebecitude": 3},
+      {"expression": "pantoute", "occurrences": 9, "quebecitude": 4},
+      {"expression": "homie", "occurrences": 7, "quebecitude": 1, "note": "californien adopté"},
+      {"expression": "lousse", "occurrences": 5, "quebecitude": 3},
+      {"expression": "YOLO", "occurrences": 4, "quebecitude": 1},
+      {"expression": "LFG", "occurrences": 2, "quebecitude": 1, "note": "crypto bro adopté"}
+    ],
+    "mots_signature": [
+      {"mot": "temps", "occurrences": 179, "note": "L'obsession cachée?"},
+      {"mot": "chose", "occurrences": 118},
+      {"mot": "produit", "occurrences": 114},
+      {"mot": "monde", "occurrences": 110, "note": "Le monde = les gens"},
+      {"mot": "conf", "occurrences": 97},
+      {"mot": "audience", "occurrences": 88},
+      {"mot": "folks", "occurrences": 58, "note": "What's up folks"},
+      {"mot": "scale", "occurrences": 59},
+      {"mot": "attention", "occurrences": 59, "note": "Économie de l'attention"}
+    ],
+    "observations": [
+      "\"Pis\" = 94 fois. T'écris comme tu parles, assumé.",
+      "Niveau 12-14 ans = parfait. Compris, pas juste bookmarké.",
+      "2.8% anglicismes explicites, mais franglais implicite (job, fun, cool) explose ce chiffre",
+      "\"Temps\" = mot #1. Le temps comme ressource rare du fondateur?"
+    ]
+  },
+
+  "bloc5_mood_o_metre": {
+    "scores_par_mois": [
+      {"mois": "01", "nom": "Janvier", "positif": 34, "negatif": 36, "ratio": 0.9, "exclamations_per_1000": 4.2, "mood_score": 34, "vibe": "Down", "note": "Solitude du fondateur, introspection"},
+      {"mois": "02", "nom": "Février", "positif": 22, "negatif": 16, "ratio": 1.4, "exclamations_per_1000": 4.8, "mood_score": 45, "vibe": "Neutre"},
+      {"mois": "03", "nom": "Mars", "positif": 17, "negatif": 4, "ratio": 4.2, "exclamations_per_1000": 4.8, "mood_score": 74, "vibe": "On fire", "note": "Spring energy"},
+      {"mois": "04", "nom": "Avril", "positif": 26, "negatif": 16, "ratio": 1.6, "exclamations_per_1000": 2.6, "mood_score": 37, "vibe": "Neutre"},
+      {"mois": "05", "nom": "Mai", "positif": 38, "negatif": 8, "ratio": 4.8, "exclamations_per_1000": 3.3, "mood_score": 66, "vibe": "Good vibes", "note": "AI tools, productivité"},
+      {"mois": "06", "nom": "Juin", "positif": 24, "negatif": 56, "ratio": 0.4, "exclamations_per_1000": 5.2, "mood_score": 32, "vibe": "Down", "note": "Pre-conf stress. PIRE MOIS de l'année."},
+      {"mois": "07", "nom": "Juillet", "positif": 14, "negatif": 4, "ratio": 3.5, "exclamations_per_1000": 9.9, "mood_score": 100, "vibe": "On fire", "note": "Éditos courts mais HYPED"},
+      {"mois": "08", "nom": "Août", "positif": 20, "negatif": 3, "ratio": 6.7, "exclamations_per_1000": 4.3, "mood_score": 72, "vibe": "On fire", "note": "Conf momentum"},
+      {"mois": "09", "nom": "Septembre", "positif": 16, "negatif": 11, "ratio": 1.5, "exclamations_per_1000": 1.9, "mood_score": 32, "vibe": "Down", "note": "Post-conf crash"},
+      {"mois": "10", "nom": "Octobre", "positif": 26, "negatif": 16, "ratio": 1.6, "exclamations_per_1000": 3.3, "mood_score": 40, "vibe": "Neutre"},
+      {"mois": "11", "nom": "Novembre", "positif": 25, "negatif": 29, "ratio": 0.9, "exclamations_per_1000": 6.5, "mood_score": 46, "vibe": "Neutre"},
+      {"mois": "12", "nom": "Décembre", "positif": 7, "negatif": 18, "ratio": 0.4, "exclamations_per_1000": 6.0, "mood_score": 36, "vibe": "Neutre"}
+    ],
+    "pics_energie": [
+      {"mois": "Mars", "raison": "Boost printanier"},
+      {"mois": "Juillet-Août", "raison": "Pré-conf / post-conf high. Éditos courts mais punchy."},
+      {"mois": "Mai", "raison": "Peak AI enthusiasm"}
+    ],
+    "creux": [
+      {"mois": "Janvier", "raison": "Introspection profonde (solitude du fondateur)"},
+      {"mois": "Juin", "raison": "Stress pré-conférence. 56 mots négatifs vs 24 positifs = pire ratio de l'année"},
+      {"mois": "Septembre", "raison": "Post-conf crash"}
+    ],
+    "moments_emotionnels": [
+      {"date": "01-10", "edito": "La solitude du founder", "emotions": ["vulnérabilité", "fierté", "hype"]},
+      {"date": "01-31", "edito": "Relax bip bip", "emotions": ["doute", "vulnérabilité"]},
+      {"date": "02-21", "edito": "Pas le temps de niaiser", "emotions": ["vulnérabilité", "fatigue"]},
+      {"date": "04-11", "edito": "Demotion", "emotions": ["doute"]},
+      {"date": "09-12", "edito": "Home run", "emotions": ["défiance", "stress"], "note": "f**k that + stress dans le tapis"},
+      {"date": "10-24", "edito": "Skrrt skrrt sur un 10 cents", "emotions": ["fierté", "vulnérabilité"]}
+    ],
+    "pattern_fondateur": "Introspection en janvier → Build up → Event high → Crash → Recovery"
+  },
+
+  "bloc6_scenes_ouverture": {
+    "types_hooks": [
+      {"type": "Déclaration forte", "frequence": 28, "pourcentage": 57, "exemple": "Ce qui m'aide le plus comme entrepreneur ↓ **Mes certitudes**"},
+      {"type": "Question", "frequence": 8, "pourcentage": 16, "exemple": "Comment t'as fait pour embaucher ta première employée?"},
+      {"type": "Mise en scène perso", "frequence": 4, "pourcentage": 8, "exemple": "*Lundi 30 déc. 22:37* — Canté dans mon lazy-boy..."},
+      {"type": "Par Joëlle", "frequence": 3, "pourcentage": 6, "exemple": "Ici Joëlle! Frank m'a passé le clavier..."},
+      {"type": "Anecdote", "frequence": 2, "pourcentage": 4, "exemple": "L'autre jour, je te disais de bâtir une audience..."},
+      {"type": "Dialogue/Citation", "frequence": 2, "pourcentage": 4, "exemple": "> Pas de stress la gang, c'est juste un autre GPT wrapper lol"},
+      {"type": "Méta", "frequence": 2, "pourcentage": 4, "exemple": "C'est pas mal le *last call* pour les billets..."}
+    ],
+    "lieux_situations": [
+      {"lieu": "Maison/repos (lazy-boy, lit)", "emoji": "🛋️", "occurrences": 24},
+      {"lieu": "Événement/conférence", "emoji": "🎤", "occurrences": 19},
+      {"lieu": "Nature/vacances", "emoji": "🌲", "occurrences": 17},
+      {"lieu": "Call/meeting", "emoji": "📞", "occurrences": 13},
+      {"lieu": "Avion", "emoji": "✈️", "occurrences": 13},
+      {"lieu": "Podcast", "emoji": "🎙️", "occurrences": 12},
+      {"lieu": "Bureau/ordi", "emoji": "💻", "occurrences": 9},
+      {"lieu": "Gym", "emoji": "🏋️", "occurrences": 2},
+      {"lieu": "Café/resto", "emoji": "☕", "occurrences": 2}
+    ],
+    "mises_en_scene_memorables": [
+      {
+        "edito": "La solitude du founder",
+        "scene": "*Lundi 30 déc. 22:37* — Canté dans mon lazy-boy. Les yeux me piquent; je révise mes états financiers. Laptop s'éteint—batterie vide. Le reflet dans l'écran sale de mon Mac me juge"
+      },
+      {
+        "edito": "Demotion",
+        "scene": "Hiver 2022. YUL 🛫 DEN — Classe affaire—payé l'extra de ma poche. Why not!"
+      },
+      {
+        "edito": "Super murmure",
+        "scene": "Je fixe la même ligne de texte pendant deux minutes sans rien processer. Mal de crâne, yeux qui brûlent, cette fatigue cognitive qui paralyse mon cerveau"
+      },
+      {
+        "edito": "Barbell",
+        "scene": "Mains moites, mi-chemin dans mon deadlift. La barre commence à pli—ben non, je lève pas si lourd que ça, relax."
+      },
+      {
+        "edito": "Skrrt skrrt",
+        "scene": "C'est un après-midi d'été chaud au Lac-Beauport. Les bourges pagaient, leurs enfants pataugent…"
+      }
+    ],
+    "observations": [
+      "Le lazy-boy = lieu signature. Écriture nocturne, introspection, le fondateur seul avec ses pensées.",
+      "L'avion revient souvent = symbole de mouvement, transition, réflexion en transit.",
+      "Peu de gym (2 mentions). L'édito Barbell est l'exception.",
+      "Les mises en scène élaborées = généralement les meilleurs éditos, plus personnels et mémorables."
+    ]
+  },
+
+  "bloc7_angles_morts": {
+    "bien_couverts": [
+      {"sujet": "Sales/ventes", "mentions": 107},
+      {"sujet": "Operations/ops", "mentions": 46},
+      {"sujet": "Hiring/embauche", "mentions": 37},
+      {"sujet": "Support", "mentions": 35},
+      {"sujet": "Exit/acquisition", "mentions": 27},
+      {"sujet": "Pricing", "mentions": 21},
+      {"sujet": "Fundraising", "mentions": 19},
+      {"sujet": "Equity/options", "mentions": 16},
+      {"sujet": "MRR/ARR", "mentions": 12},
+      {"sujet": "Culture", "mentions": 11},
+      {"sujet": "Demo/discovery", "mentions": 10},
+      {"sujet": "Competition", "mentions": 10},
+      {"sujet": "Pivots", "mentions": 10}
+    ],
+    "moyennement_couverts": [
+      {"sujet": "Upsell/expansion", "mentions": 9},
+      {"sujet": "Burn rate", "mentions": 8},
+      {"sujet": "Paid ads", "mentions": 8},
+      {"sujet": "Expansion US", "mentions": 8},
+      {"sujet": "Closing", "mentions": 7},
+      {"sujet": "Churn", "mentions": 7},
+      {"sujet": "CAC/LTV", "mentions": 6},
+      {"sujet": "Cold outreach", "mentions": 5},
+      {"sujet": "Localisation", "mentions": 5},
+      {"sujet": "Objections", "mentions": 4},
+      {"sujet": "Roadmap", "mentions": 4},
+      {"sujet": "Firing", "mentions": 4},
+      {"sujet": "Moat/defensibility", "mentions": 4},
+      {"sujet": "Product-market fit", "mentions": 3},
+      {"sujet": "SEO", "mentions": 3}
+    ],
+    "angles_morts": [
+      {"sujet": "NPS", "mentions": 0, "verdict": "Jamais parlé de mesurer la satisfaction"},
+      {"sujet": "Cohort analysis", "mentions": 0, "verdict": "Absent"},
+      {"sujet": "Unit economics", "mentions": 2, "verdict": "Le nerf de la guerre, pourtant"},
+      {"sujet": "Freemium", "mentions": 2, "verdict": "Modèle populaire ignoré"},
+      {"sujet": "Customer Success", "mentions": 2, "verdict": "Département clé ignoré"},
+      {"sujet": "PLG (Product-Led Growth)", "mentions": 1, "verdict": "Tendance majeure, 1 mention"},
+      {"sujet": "User research", "mentions": 1, "verdict": "Comment valider sans ça?"},
+      {"sujet": "Feature prioritization", "mentions": 1, "verdict": "Le quotidien d'un PM"},
+      {"sujet": "Remote/hybride", "mentions": 1, "verdict": "La réalité de 80% des startups"},
+      {"sujet": "Content marketing", "mentions": 1, "verdict": "Ironique pour une newsletter!"},
+      {"sujet": "Valuation", "mentions": 1}
+    ],
+    "autocritique": {
+      "bien_couvert": "Le mindset fondateur, l'AI, le storytelling, la communauté",
+      "moins_couvert": "Les métriques dures, les processus, le go-to-market tactique",
+      "paradoxe": "Une newsletter sur le SaaS qui parle plus de vibes que de unit economics"
+    },
+    "pistes_2026": [
+      "Deep dive sur les unit economics (CAC payback, LTV:CAC)",
+      "Série PLG / freemium",
+      "User research : comment valider efficacement",
+      "Le guide du firing respectueux (le tabou)",
+      "Customer Success : le département oublié",
+      "SEO pour SaaS en 2026",
+      "Remote-first : bâtir une culture à distance",
+      "NPS et mesure de satisfaction"
+    ]
+  },
+
+  "editoriaux_2025": [
+    {"date": "2025-01-10", "slug": "la-solitude-du-founder", "mots": 1866},
+    {"date": "2025-01-17", "slug": "pilotes-inverses", "mots": 1718},
+    {"date": "2025-01-24", "slug": "merites-tu-mon-attention", "mots": 1667},
+    {"date": "2025-01-31", "slug": "relax-bip-bip", "mots": 980},
+    {"date": "2025-02-07", "slug": "un-lama-et-deux-bozos", "mots": 1008},
+    {"date": "2025-02-14", "slug": "certitudes", "mots": 1390},
+    {"date": "2025-02-21", "slug": "pas-le-temps-de-niaiser", "mots": 1692},
+    {"date": "2025-02-28", "slug": "audience-hijacking-p1", "mots": 1732},
+    {"date": "2025-03-07", "slug": "les-pousseux-de-produit", "mots": 898},
+    {"date": "2025-03-14", "slug": "cartographier-le-chaos", "mots": 1523},
+    {"date": "2025-03-21", "slug": "startup-staging-101", "mots": 1526},
+    {"date": "2025-03-28", "slug": "piliers-de-messaging", "mots": 1109},
+    {"date": "2025-04-04", "slug": "alpd-average-lols-per-day", "mots": 1019},
+    {"date": "2025-04-11", "slug": "demotion", "mots": 2221},
+    {"date": "2025-04-18", "slug": "outreach-materialiste", "mots": 1435},
+    {"date": "2025-04-25", "slug": "vertical-ai", "mots": 1863},
+    {"date": "2025-05-02", "slug": "super-murmure", "mots": 1395},
+    {"date": "2025-05-09", "slug": "check-in", "mots": 1148},
+    {"date": "2025-05-16", "slug": "creer-consommer", "mots": 1642},
+    {"date": "2025-05-23", "slug": "rh-copilote-ai", "mots": 1491},
+    {"date": "2025-05-30", "slug": "gravite-numerique", "mots": 1511},
+    {"date": "2025-06-06", "slug": "tu-magasines-ils-courent", "mots": 1596},
+    {"date": "2025-06-13", "slug": "ca-remonte-a-quand", "mots": 972},
+    {"date": "2025-06-20", "slug": "pissou-picsou", "mots": 1636},
+    {"date": "2025-06-27", "slug": "aimable-moineau", "mots": 1741},
+    {"date": "2025-07-04", "slug": "vire-pas-fou-avec-les-jaloux", "mots": 548},
+    {"date": "2025-07-11", "slug": "mille-folks", "mots": 741},
+    {"date": "2025-07-18", "slug": "chief-conference-officer", "mots": 629},
+    {"date": "2025-07-25", "slug": "le-retour-du-g", "mots": 828},
+    {"date": "2025-08-01", "slug": "lampe-de-poche-sur", "mots": 941},
+    {"date": "2025-08-08", "slug": "pas-de-budget-pas-de-probleme", "mots": 578},
+    {"date": "2025-08-15", "slug": "un-chateau-et-un-dragon", "mots": 989},
+    {"date": "2025-08-22", "slug": "jeunes-loups-gentil-yack", "mots": 825},
+    {"date": "2025-08-29", "slug": "cicatrices-de-startup", "mots": 1046},
+    {"date": "2025-09-05", "slug": "all-about-croissance", "mots": 860},
+    {"date": "2025-09-12", "slug": "home-run", "mots": 286},
+    {"date": "2025-09-19", "slug": "danser-autour-du-probleme", "mots": 907},
+    {"date": "2025-09-26", "slug": "barbell", "mots": 1162},
+    {"date": "2025-10-03", "slug": "voler-le-trone-des-geants", "mots": 1125},
+    {"date": "2025-10-10", "slug": "une-bouchee-argile", "mots": 1381},
+    {"date": "2025-10-17", "slug": "agents-doubles", "mots": 1627},
+    {"date": "2025-10-24", "slug": "skrrt-skrrt-sur-un-10-cents", "mots": 3000},
+    {"date": "2025-10-28", "slug": "le-canard-et-le-capitaine", "mots": 1570},
+    {"date": "2025-11-06", "slug": "dans-la-poche", "mots": 2033},
+    {"date": "2025-11-13", "slug": "vendre-ou-ne-pas-vendre", "mots": 1756},
+    {"date": "2025-11-19", "slug": "tout-gote-la-vanille", "mots": 1673},
+    {"date": "2025-11-27", "slug": "une-croustille-sur-la-clavicule", "mots": 1652},
+    {"date": "2025-12-05", "slug": "l-orchestre-invisible", "mots": 1510},
+    {"date": "2025-12-12", "slug": "programmation-vibration", "mots": 2364}
+  ]
+}

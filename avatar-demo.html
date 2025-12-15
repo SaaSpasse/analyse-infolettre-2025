@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avatar Demo v2 - SaaSpals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dark: #070A26;
+      --purple: #853DFF;
+      --light-purple: #AD80FF;
+      --cream: #ECEBF1;
+      --shadow-sm: 2px 2px 0px var(--dark);
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--cream);
+      color: var(--dark);
+      padding: 40px;
+      line-height: 1.6;
+    }
+
+    h1 { margin-bottom: 8px; }
+
+    h2 {
+      margin-top: 40px;
+      margin-bottom: 16px;
+      font-size: 1.2rem;
+    }
+
+    .subtitle {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      margin-bottom: 32px;
+      opacity: 0.7;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: white;
+      border: 2px solid var(--dark);
+      box-shadow: var(--shadow-sm);
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid var(--dark);
+      flex-shrink: 0;
+      background: white;
+    }
+
+    .avatar-square {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--dark);
+      flex-shrink: 0;
+      background: white;
+    }
+
+    .info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .name {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .role {
+      font-size: 12px;
+      opacity: 0.7;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .section-note {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      background: var(--purple);
+      color: white;
+      padding: 4px 8px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    /* ASCII Avatar */
+    .ascii-avatar {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--dark);
+      flex-shrink: 0;
+      background: var(--dark);
+      color: var(--purple);
+      font-family: 'Space Mono', monospace;
+      font-size: 7px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      white-space: pre;
+      overflow: hidden;
+    }
+
+    /* Block Avatar */
+    .block-avatar {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--dark);
+      flex-shrink: 0;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+    }
+
+    .block-avatar span {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Mono initials brutalist */
+    .brutalist-avatar {
+      width: 48px;
+      height: 48px;
+      border: 3px solid var(--dark);
+      flex-shrink: 0;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 16px;
+      position: relative;
+    }
+
+    .brutalist-avatar::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      right: -3px;
+      width: 100%;
+      height: 100%;
+      background: var(--purple);
+      z-index: -1;
+    }
+
+    /* Glitch avatar */
+    .glitch-avatar {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--dark);
+      flex-shrink: 0;
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glitch-avatar::before {
+      content: attr(data-initials);
+      position: absolute;
+      color: var(--purple);
+      left: 2px;
+      top: 0;
+      clip-path: inset(0 0 50% 0);
+    }
+
+    .glitch-avatar::after {
+      content: attr(data-initials);
+      position: absolute;
+      color: var(--light-purple);
+      left: -2px;
+      top: 0;
+      clip-path: inset(50% 0 0 0);
+    }
+
+    /* Barcode avatar */
+    .barcode-avatar {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--dark);
+      flex-shrink: 0;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      padding: 4px;
+      gap: 1px;
+    }
+
+    .barcode-avatar .bars {
+      flex: 1;
+      display: flex;
+      gap: 1px;
+      align-items: stretch;
+    }
+
+    .barcode-avatar .bar {
+      background: var(--dark);
+    }
+
+    .barcode-avatar .initials {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    /* Terminal avatar */
+    .terminal-avatar {
+      width: 56px;
+      height: 48px;
+      border: 2px solid var(--dark);
+      flex-shrink: 0;
+      background: var(--dark);
+      color: #00ff00;
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .terminal-avatar .prompt {
+      opacity: 0.6;
+    }
+
+    /* Pixel hash */
+    .pixel-avatar {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--dark);
+      flex-shrink: 0;
+      image-rendering: pixelated;
+    }
+  </style>
+</head>
+<body>
+  <h1>Avatar Demo v2 - Options uniques</h1>
+  <p class="subtitle">Style brutaliste / rétro-tech</p>
+
+  <!-- DiceBear Pixel Art -->
+  <h2>Option 1: DiceBear Pixel Art</h2>
+  <p class="section-note">8-bit retro style</p>
+  <div class="grid">
+    <div class="card">
+      <img class="avatar-square pixel-avatar" src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Benoît Devilliers&backgroundColor=ECEBF1" alt="">
+      <div class="info">
+        <div class="name">Benoît Devilliers</div>
+        <div class="role">Founder @ Nolow</div>
+      </div>
+    </div>
+    <div class="card">
+      <img class="avatar-square pixel-avatar" src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Rafael Masson&backgroundColor=ECEBF1" alt="">
+      <div class="info">
+        <div class="name">Rafael Masson</div>
+        <div class="role">Co-fondateur/CTO @ Missive</div>
+      </div>
+    </div>
+    <div class="card">
+      <img class="avatar-square pixel-avatar" src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Marie-Sophie Dionne&backgroundColor=ECEBF1" alt="">
+      <div class="info">
+        <div class="name">Marie-Sophie Dionne</div>
+        <div class="role">CEO @ Optania</div>
+      </div>
+    </div>
+    <div class="card">
+      <img class="avatar-square pixel-avatar" src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Jean-Philippe Fortin-Cantin&backgroundColor=ECEBF1" alt="">
+      <div class="info">
+        <div class="name">Jean-Philippe Fortin-Cantin</div>
+        <div class="role">Head of Marketing @ DashThis</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DiceBear Bottts (Robots) -->
+  <h2>Option 2: DiceBear Bottts</h2>
+  <p class="section-note">Robots brutalistes</p>
+  <div class="grid">
+    <div class="card">
+      <img class="avatar-square" src="https://api.dicebear.com/7.x/bottts/svg?seed=Benoît Devilliers&backgroundColor=ECEBF1&baseColor=853DFF" alt="">
+      <div class="info">
+        <div class="name">Benoît Devilliers</div>
+        <div class="role">Founder @ Nolow</div>
+      </div>
+    </div>
+    <div class="card">
+      <img class="avatar-square" src="https://api.dicebear.com/7.x/bottts/svg?seed=Rafael Masson&backgroundColor=ECEBF1&baseColor=853DFF" alt="">
+      <div class="info">
+        <div class="name">Rafael Masson</div>
+        <div class="role">Co-fondateur/CTO @ Missive</div>
+      </div>
+    </div>
+    <div class="card">
+      <img class="avatar-square" src="https://api.dicebear.com/7.x/bottts/svg?seed=Marie-Sophie Dionne&backgroundColor=ECEBF1&baseColor=853DFF" alt="">
+      <div class="info">
+        <div class="name">Marie-Sophie Dionne</div>
+        <div class="role">CEO @ Optania</div>
+      </div>
+    </div>
+    <div class="card">
+      <img class="avatar-square" src="https://api.dicebear.com/7.x/bottts/svg?seed=Jean-Philippe Fortin-Cantin&backgroundColor=ECEBF1&baseColor=853DFF" alt="">
+      <div class="info">
+        <div class="name">Jean-Philippe Fortin-Cantin</div>
+        <div class="role">Head of Marketing @ DashThis</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DiceBear Identicon -->
+  <h2>Option 3: DiceBear Identicon</h2>
+  <p class="section-note">Hash visuel unique à la GitHub</p>
+  <div class="grid">
+    <div class="card">
+      <img class="avatar-square" src="https://api.dicebear.com/7.x/identicon/svg?seed=Benoît Devilliers&backgroundColor=ECEBF1&rowColor=853DFF" alt="">
+      <div class="info">
+        <div class="name">Benoît Devilliers</div>
+        <div class="role">Founder @ Nolow</div>
+      </div>
+    </div>
+    <div class="card">
+      <img class="avatar-square" src="https://api.dicebear.com/7.x/identicon/svg?seed=Rafael Masson&backgroundColor=ECEBF1&rowColor=853DFF" alt="">
+      <div class="info">
+        <div class="name">Rafael Masson</div>
+        <div class="role">Co-fondateur/CTO @ Missive</div>
+      </div>
+    </div>
+    <div class="card">
+      <img class="avatar-square" src="https://api.dicebear.com/7.x/identicon/svg?seed=Marie-Sophie Dionne&backgroundColor=ECEBF1&rowColor=853DFF" alt="">
+      <div class="info">
+        <div class="name">Marie-Sophie Dionne</div>
+        <div class="role">CEO @ Optania</div>
+      </div>
+    </div>
+    <div class="card">
+      <img class="avatar-square" src="https://api.dicebear.com/7.x/identicon/svg?seed=Jean-Philippe Fortin-Cantin&backgroundColor=ECEBF1&rowColor=853DFF" alt="">
+      <div class="info">
+        <div class="name">Jean-Philippe Fortin-Cantin</div>
+        <div class="role">Head of Marketing @ DashThis</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DiceBear Rings -->
+  <h2>Option 4: DiceBear Rings</h2>
+  <p class="section-note">Cercles concentriques</p>
+  <div class="grid">
+    <div class="card">
+      <img class="avatar" src="https://api.dicebear.com/7.x/rings/svg?seed=Benoît Devilliers" alt="">
+      <div class="info">
+        <div class="name">Benoît Devilliers</div>
+        <div class="role">Founder @ Nolow</div>
+      </div>
+    </div>
+    <div class="card">
+      <img class="avatar" src="https://api.dicebear.com/7.x/rings/svg?seed=Rafael Masson" alt="">
+      <div class="info">
+        <div class="name">Rafael Masson</div>
+        <div class="role">Co-fondateur/CTO @ Missive</div>
+      </div>
+    </div>
+    <div class="card">
+      <img class="avatar" src="https://api.dicebear.com/7.x/rings/svg?seed=Marie-Sophie Dionne" alt="">
+      <div class="info">
+        <div class="name">Marie-Sophie Dionne</div>
+        <div class="role">CEO @ Optania</div>
+      </div>
+    </div>
+    <div class="card">
+      <img class="avatar" src="https://api.dicebear.com/7.x/rings/svg?seed=Jean-Philippe Fortin-Cantin" alt="">
+      <div class="info">
+        <div class="name">Jean-Philippe Fortin-Cantin</div>
+        <div class="role">Head of Marketing @ DashThis</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom: Brutalist offset box -->
+  <h2>Option 5: Brutalist Offset</h2>
+  <p class="section-note">Custom CSS - carré décalé</p>
+  <div class="grid">
+    <div class="card">
+      <div class="brutalist-avatar">BD</div>
+      <div class="info">
+        <div class="name">Benoît Devilliers</div>
+        <div class="role">Founder @ Nolow</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="brutalist-avatar">RM</div>
+      <div class="info">
+        <div class="name">Rafael Masson</div>
+        <div class="role">Co-fondateur/CTO @ Missive</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="brutalist-avatar">MD</div>
+      <div class="info">
+        <div class="name">Marie-Sophie Dionne</div>
+        <div class="role">CEO @ Optania</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="brutalist-avatar">JF</div>
+      <div class="info">
+        <div class="name">Jean-Philippe Fortin-Cantin</div>
+        <div class="role">Head of Marketing @ DashThis</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom: Glitch effect -->
+  <h2>Option 6: Glitch</h2>
+  <p class="section-note">Custom CSS - effet glitch</p>
+  <div class="grid">
+    <div class="card">
+      <div class="glitch-avatar" data-initials="BD">BD</div>
+      <div class="info">
+        <div class="name">Benoît Devilliers</div>
+        <div class="role">Founder @ Nolow</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="glitch-avatar" data-initials="RM">RM</div>
+      <div class="info">
+        <div class="name">Rafael Masson</div>
+        <div class="role">Co-fondateur/CTO @ Missive</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="glitch-avatar" data-initials="MD">MD</div>
+      <div class="info">
+        <div class="name">Marie-Sophie Dionne</div>
+        <div class="role">CEO @ Optania</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="glitch-avatar" data-initials="JF">JF</div>
+      <div class="info">
+        <div class="name">Jean-Philippe Fortin-Cantin</div>
+        <div class="role">Head of Marketing @ DashThis</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom: Terminal style -->
+  <h2>Option 7: Terminal</h2>
+  <p class="section-note">Custom CSS - style CLI</p>
+  <div class="grid">
+    <div class="card">
+      <div class="terminal-avatar">
+        <span class="prompt">$_</span>
+        <span>BD</span>
+      </div>
+      <div class="info">
+        <div class="name">Benoît Devilliers</div>
+        <div class="role">Founder @ Nolow</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="terminal-avatar">
+        <span class="prompt">$_</span>
+        <span>RM</span>
+      </div>
+      <div class="info">
+        <div class="name">Rafael Masson</div>
+        <div class="role">Co-fondateur/CTO @ Missive</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="terminal-avatar">
+        <span class="prompt">$_</span>
+        <span>MD</span>
+      </div>
+      <div class="info">
+        <div class="name">Marie-Sophie Dionne</div>
+        <div class="role">CEO @ Optania</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="terminal-avatar">
+        <span class="prompt">$_</span>
+        <span>JF</span>
+      </div>
+      <div class="info">
+        <div class="name">Jean-Philippe Fortin-Cantin</div>
+        <div class="role">Head of Marketing @ DashThis</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom: ASCII Art mini -->
+  <h2>Option 8: ASCII Face</h2>
+  <p class="section-note">Custom CSS - art ASCII</p>
+  <div class="grid">
+    <div class="card">
+      <div class="ascii-avatar"><span> .--.
+(o  o)
+| BD |
+ '--'</span></div>
+      <div class="info">
+        <div class="name">Benoît Devilliers</div>
+        <div class="role">Founder @ Nolow</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ascii-avatar"><span> .--.
+(o  o)
+| RM |
+ '--'</span></div>
+      <div class="info">
+        <div class="name">Rafael Masson</div>
+        <div class="role">Co-fondateur/CTO @ Missive</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ascii-avatar"><span> .--.
+(o  o)
+| MD |
+ '--'</span></div>
+      <div class="info">
+        <div class="name">Marie-Sophie Dionne</div>
+        <div class="role">CEO @ Optania</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ascii-avatar"><span> .--.
+(o  o)
+| JF |
+ '--'</span></div>
+      <div class="info">
+        <div class="name">Jean-Philippe Fortin-Cantin</div>
+        <div class="role">Head of Marketing @ DashThis</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom: Barcode -->
+  <h2>Option 9: Barcode</h2>
+  <p class="section-note">Custom CSS - style code-barre</p>
+  <div class="grid">
+    <div class="card">
+      <div class="barcode-avatar">
+        <div class="bars">
+          <span class="bar" style="flex:2"></span>
+          <span class="bar" style="flex:1"></span>
+          <span class="bar" style="flex:3"></span>
+          <span class="bar" style="flex:1"></span>
+          <span class="bar" style="flex:2"></span>
+          <span class="bar" style="flex:1"></span>
+          <span class="bar" style="flex:2"></span>
+        </div>
+        <div class="initials">BD</div>
+      </div>
+      <div class="info">
+        <div class="name">Benoît Devilliers</div>
+        <div class="role">Founder @ Nolow</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="barcode-avatar">
+        <div class="bars">
+          <span class="bar" style="flex:1"></span>
+          <span class="bar" style="flex:2"></span>
+          <span class="bar" style="flex:1"></span>
+          <span class="bar" style="flex:3"></span>
+          <span class="bar" style="flex:2"></span>
+          <span class="bar" style="flex:1"></span>
+          <span class="bar" style="flex:1"></span>
+        </div>
+        <div class="initials">RM</div>
+      </div>
+      <div class="info">
+        <div class="name">Rafael Masson</div>
+        <div class="role">Co-fondateur/CTO @ Missive</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="barcode-avatar">
+        <div class="bars">
+          <span class="bar" style="flex:3"></span>
+          <span class="bar" style="flex:1"></span>
+          <span class="bar" style="flex:2"></span>
+          <span class="bar" style="flex:2"></span>
+          <span class="bar" style="flex:1"></span>
+          <span class="bar" style="flex:1"></span>
+          <span class="bar" style="flex:3"></span>
+        </div>
+        <div class="initials">MD</div>
+      </div>
+      <div class="info">
+        <div class="name">Marie-Sophie Dionne</div>
+        <div class="role">CEO @ Optania</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="barcode-avatar">
+        <div class="bars">
+          <span class="bar" style="flex:1"></span>
+          <span class="bar" style="flex:1"></span>
+          <span class="bar" style="flex:2"></span>
+          <span class="bar" style="flex:1"></span>
+          <span class="bar" style="flex:3"></span>
+          <span class="bar" style="flex:2"></span>
+          <span class="bar" style="flex:1"></span>
+        </div>
+        <div class="initials">JF</div>
+      </div>
+      <div class="info">
+        <div class="name">Jean-Philippe Fortin-Cantin</div>
+        <div class="role">Head of Marketing @ DashThis</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

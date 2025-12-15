@@ -1,0 +1,2871 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaaSpasse 2025 — Rétro éditoriale</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --dark: #070A26;
+      --purple: #853DFF;
+      --light-purple: #AD80FF;
+      --cream: #ECEBF1;
+      --purple-wash: #F0E8FF;
+      --teal-wash: #E0FFF7;
+      --gold-wash: #FFF8E0;
+      --rose-wash: #FFF0F3;
+      --shadow: 4px 4px 0px var(--dark);
+      --shadow-sm: 2px 2px 0px var(--dark);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--cream);
+      color: var(--dark);
+      line-height: 1.6;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.12;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--cream);
+      border-bottom: 3px solid var(--dark);
+      padding: 12px 0;
+      z-index: 100;
+    }
+
+    nav .container {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      position: relative;
+    }
+
+    nav .container::after {
+      content: "";
+      position: sticky;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      min-width: 40px;
+      background: linear-gradient(to left, var(--cream), transparent);
+      pointer-events: none;
+      flex-shrink: 0;
+    }
+
+    .nav-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      padding: 8px 12px;
+      background: white;
+      border: 2px solid var(--dark);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.1s;
+    }
+
+    .nav-btn:hover {
+      background: var(--purple);
+      color: white;
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px var(--dark);
+    }
+
+    .nav-btn:focus-visible {
+      outline: 3px solid var(--purple);
+      outline-offset: 2px;
+    }
+
+    /* Sections */
+    section {
+      padding: 60px 0;
+      border-bottom: 3px solid var(--dark);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .mono {
+      font-family: 'Space Mono', monospace;
+    }
+
+    a {
+      color: var(--purple);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Cards */
+    .card {
+      background: white;
+      border: 3px solid var(--dark);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .card.purple-wash { background: var(--purple-wash); }
+    .card.teal-wash { background: var(--teal-wash); }
+    .card.gold-wash { background: var(--gold-wash); }
+    .card.rose-wash { background: var(--rose-wash); }
+
+    /* Stats grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 600px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stat-box {
+      background: white;
+      border: 3px solid var(--dark);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--purple);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      margin-top: 8px;
+      text-transform: uppercase;
+    }
+
+    /* Tooltip */
+    .tooltip-trigger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      background: var(--dark);
+      color: white;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: help;
+      position: relative;
+      margin-left: 6px;
+    }
+
+    .tooltip-trigger:hover .tooltip-content {
+      display: block;
+    }
+
+    .tooltip-content {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--dark);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 400;
+      white-space: nowrap;
+      margin-bottom: 8px;
+      z-index: 1000;
+    }
+
+    .tooltip-content::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--dark);
+    }
+
+    /* Slider */
+    .slider-container {
+      background: var(--purple-wash);
+      border: 3px solid var(--dark);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin-top: 24px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .slider-result {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--purple);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 12px;
+      -webkit-appearance: none;
+      background: white;
+      border: 2px solid var(--dark);
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px;
+      height: 24px;
+      background: var(--purple);
+      border: 2px solid var(--dark);
+      cursor: pointer;
+    }
+
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      margin-top: 8px;
+    }
+
+    /* Bar chart custom */
+    .bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bar-label {
+      width: 140px;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .bar-label:hover {
+      color: var(--purple);
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 28px;
+      background: white;
+      border: 2px solid var(--dark);
+      position: relative;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--purple);
+      transition: width 0.5s ease-out;
+    }
+
+    .bar-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      width: 50px;
+      text-align: right;
+    }
+
+    /* Blague box */
+    .blague {
+      background: var(--gold-wash);
+      border: 3px solid var(--dark);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin: 24px 0;
+      font-style: italic;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      background: var(--rose-wash);
+      border: 2px dashed var(--dark);
+      padding: 12px 16px;
+      font-size: 13px;
+      margin: 16px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    /* Note box */
+    .note-box {
+      background: var(--teal-wash);
+      border: 2px solid var(--dark);
+      padding: 12px 16px;
+      font-size: 13px;
+      margin: 16px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    /* Grid layout */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Stack AI grid */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .stack-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .stack-item {
+      background: white;
+      border: 2px solid var(--dark);
+      box-shadow: var(--shadow-sm);
+      padding: 12px;
+      text-align: center;
+    }
+
+    .stack-item a {
+      color: inherit;
+    }
+
+    .stack-item a:hover {
+      color: var(--purple);
+    }
+
+    .stack-name {
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .stack-count {
+      font-family: 'Space Mono', monospace;
+      font-size: 18px;
+      color: var(--purple);
+    }
+
+    /* Expressions list */
+    .expression-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .expression-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: white;
+      border: 2px solid var(--dark);
+    }
+
+    .expression-word {
+      font-weight: 700;
+    }
+
+    .expression-count {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+    }
+
+    /* Chart canvas wrapper */
+    .chart-wrapper {
+      background: white;
+      border: 3px solid var(--dark);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    /* Extremes */
+    .extremes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .extremes {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .extreme-card {
+      padding: 20px;
+      border: 3px solid var(--dark);
+      box-shadow: var(--shadow);
+    }
+
+    .extreme-card.long { background: var(--purple-wash); }
+    .extreme-card.short { background: var(--teal-wash); }
+
+    .extreme-title {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .extreme-title a {
+      color: inherit;
+    }
+
+    .extreme-title a:hover {
+      color: var(--purple);
+    }
+
+    .extreme-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .extreme-bar {
+      height: 12px;
+      background: white;
+      border: 2px solid var(--dark);
+      margin-top: 12px;
+    }
+
+    .extreme-bar-fill {
+      height: 100%;
+      background: var(--purple);
+    }
+
+    .extreme-count {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    /* Header disclaimer */
+    .header-disclaimer {
+      background: var(--dark);
+      color: var(--cream);
+      padding: 12px;
+      font-size: 12px;
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+    }
+
+    footer a {
+      color: var(--purple);
+    }
+
+    /* Top 3 populaires */
+    .top-3 {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .top-3-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: white;
+      border: 3px solid var(--dark);
+      box-shadow: var(--shadow);
+    }
+
+    .top-3-item:nth-child(1) { background: var(--gold-wash); }
+    .top-3-item:nth-child(2) { background: var(--cream); }
+    .top-3-item:nth-child(3) { background: var(--rose-wash); }
+
+    .top-3-rank {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--purple);
+      width: 40px;
+    }
+
+    .top-3-content {
+      flex: 1;
+    }
+
+    .top-3-title {
+      font-weight: 700;
+    }
+
+    .top-3-title a {
+      color: inherit;
+    }
+
+    .top-3-meta {
+      font-size: 12px;
+      font-family: 'Space Mono', monospace;
+      opacity: 0.7;
+    }
+
+    .top-3-stats {
+      font-size: 11px;
+      font-family: 'Space Mono', monospace;
+      color: var(--purple);
+    }
+
+    /* Person card */
+    .person-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .person-card {
+      background: white;
+      border: 2px solid var(--dark);
+      box-shadow: var(--shadow-sm);
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .person-card.highlight {
+      background: var(--gold-wash);
+      border-width: 3px;
+    }
+
+    .person-rank {
+      font-weight: 700;
+      color: var(--purple);
+      width: 24px;
+    }
+
+    .person-info {
+      flex: 1;
+    }
+
+    .person-name {
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .person-context {
+      font-size: 11px;
+      opacity: 0.7;
+    }
+
+    .person-count {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      color: var(--purple);
+    }
+
+    /* SaaSpals grid */
+    .saaspals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
+      gap: 12px;
+    }
+
+    .saaspal-card {
+      background: white;
+      border: 2px solid var(--dark);
+      box-shadow: var(--shadow-sm);
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.1s;
+    }
+
+    .saaspal-card:hover {
+      background: var(--purple-wash);
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px var(--dark);
+      text-decoration: none;
+    }
+
+    .saaspal-card:focus-visible {
+      outline: 3px solid var(--purple);
+      outline-offset: 2px;
+    }
+
+    .saaspal-avatar {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--dark);
+      flex-shrink: 0;
+      background: var(--cream);
+    }
+
+    .saaspal-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .saaspal-name {
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .saaspal-role {
+      font-size: 11px;
+      opacity: 0.7;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Mood legend */
+    .mood-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+
+    .mood-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mood-dot {
+      width: 12px;
+      height: 12px;
+      border: 2px solid var(--dark);
+    }
+
+    /* Pattern box */
+    .pattern-box {
+      background: var(--gold-wash);
+      border: 3px solid var(--dark);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      text-align: center;
+      margin: 24px 0;
+    }
+
+    .pattern-flow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+
+    .pattern-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pattern-arrow {
+      font-size: 20px;
+    }
+
+    /* Hooks types */
+    .hooks-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .hooks-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hook-item {
+      background: white;
+      border: 2px solid var(--dark);
+      box-shadow: var(--shadow-sm);
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hook-type {
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .hook-percent {
+      font-family: 'Space Mono', monospace;
+      font-size: 18px;
+      color: var(--purple);
+    }
+
+    /* Lieux */
+    .lieux-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .lieu-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lieu-icon {
+      width: 30px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .lieu-name {
+      width: 140px;
+      font-size: 13px;
+    }
+
+    .lieu-bar {
+      flex: 1;
+      height: 20px;
+      background: white;
+      border: 2px solid var(--dark);
+    }
+
+    .lieu-bar-fill {
+      height: 100%;
+      background: var(--light-purple);
+    }
+
+    .lieu-count {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      width: 30px;
+      text-align: right;
+    }
+
+    /* Carousel */
+    .carousel {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.3s ease;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      padding: 24px;
+      background: white;
+      border: 3px solid var(--dark);
+      box-shadow: var(--shadow);
+    }
+
+    .carousel-quote {
+      font-size: 1.1rem;
+      font-style: italic;
+      margin-bottom: 16px;
+      line-height: 1.7;
+      border-left: 4px solid var(--purple);
+      padding-left: 16px;
+    }
+
+    .carousel-source {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+    }
+
+    .carousel-source a {
+      color: var(--purple);
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      background: white;
+      border: 2px solid var(--dark);
+      cursor: pointer;
+    }
+
+    .carousel-dot.active {
+      background: var(--purple);
+    }
+
+    /* Comparison boxes */
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .comparison-box {
+      padding: 20px;
+      border: 3px solid var(--dark);
+      box-shadow: var(--shadow);
+    }
+
+    .comparison-box.good { background: var(--teal-wash); }
+    .comparison-box.bad { background: var(--rose-wash); }
+
+    .comparison-title {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .comparison-list {
+      list-style: none;
+      font-size: 13px;
+    }
+
+    .comparison-list li {
+      padding: 4px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Checklist */
+    .checklist {
+      list-style: none;
+    }
+
+    .checklist li {
+      padding: 8px 0;
+      padding-left: 28px;
+      position: relative;
+      border-bottom: 1px dashed var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checklist li i {
+      position: absolute;
+      left: 0;
+    }
+
+    /* Reading level bar */
+    .reading-level {
+      background: white;
+      border: 3px solid var(--dark);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .level-bar {
+      height: 24px;
+      background: linear-gradient(to right, #22c55e, #facc15, #f87171);
+      border: 2px solid var(--dark);
+      position: relative;
+      margin: 20px 0;
+    }
+
+    .level-marker {
+      position: absolute;
+      top: -8px;
+      left: 35%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 40px;
+      background: var(--dark);
+    }
+
+    .level-marker::after {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 8px solid transparent;
+      border-top-color: var(--dark);
+    }
+
+    .level-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .level-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 8px;
+    }
+
+    /* Donut */
+    .donut-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .donut {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--purple) 0deg 10deg,
+        var(--cream) 10deg 360deg
+      );
+      border: 3px solid var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .donut-hole {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .donut-percent {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--purple);
+    }
+
+    .donut-label {
+      font-size: 10px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Ski animation */
+    .skier {
+      position: fixed;
+      font-size: 48px;
+      z-index: 9999;
+      pointer-events: none;
+      animation: ski-across 1s linear forwards;
+    }
+
+    @keyframes ski-across {
+      0% {
+        right: -60px;
+        top: 70%;
+        transform: rotate(15deg);
+      }
+      50% {
+        top: 50%;
+        transform: rotate(0deg);
+      }
+      100% {
+        right: calc(100% + 60px);
+        top: 20%;
+        transform: rotate(-15deg);
+      }
+    }
+
+    .skier:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .skier:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(7, 10, 38, 0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: white;
+      border: 3px solid var(--dark);
+      box-shadow: 8px 8px 0px var(--dark);
+      max-width: 500px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 2px solid var(--dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-weight: 700;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .modal-item {
+      padding: 12px 0;
+      border-bottom: 1px dashed var(--dark);
+    }
+
+    .modal-item:last-child {
+      border-bottom: none;
+    }
+
+    .modal-item-title {
+      font-weight: 700;
+    }
+
+    .modal-item-meta {
+      font-size: 12px;
+      font-family: 'Space Mono', monospace;
+      color: var(--purple);
+    }
+
+    /* Peak section */
+    .peak-section {
+      background: var(--purple-wash);
+      border: 3px solid var(--dark);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .peak-title {
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .peak-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .peak-item {
+      background: white;
+      border: 2px solid var(--dark);
+      padding: 12px;
+    }
+
+    .peak-item-title {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .peak-item-meta {
+      font-size: 11px;
+      font-family: 'Space Mono', monospace;
+      opacity: 0.7;
+    }
+
+    /* Logo */
+    .logo {
+      height: 40px;
+      margin-bottom: 16px;
+    }
+
+    /* Edito linked list */
+    .edito-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .edito-item {
+      background: white;
+      border: 2px solid var(--dark);
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .edito-item-title {
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .edito-item-title a {
+      color: inherit;
+    }
+
+    .edito-item-title a:hover {
+      color: var(--purple);
+    }
+
+    .edito-item-meta {
+      font-size: 11px;
+      font-family: 'Space Mono', monospace;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="header-disclaimer">
+    Analyse du contenu éditorial uniquement. Sections promo exclues.
+  </div>
+
+  <nav>
+    <div class="container">
+      <button class="nav-btn" onclick="scrollToSection('stats')">Stats</button>
+      <button class="nav-btn" onclick="scrollToSection('themes')">Thèmes</button>
+      <button class="nav-btn" onclick="scrollToSection('names')">Names</button>
+      <button class="nav-btn" onclick="scrollToSection('langue')">Langue</button>
+      <button class="nav-btn" onclick="scrollToSection('mood')">Mood</button>
+      <button class="nav-btn" onclick="scrollToSection('hooks')">Hooks</button>
+      <button class="nav-btn" onclick="scrollToSection('angles')">Angles morts</button>
+      <button class="nav-btn" onclick="scrollToSection('saaspals')">SaaSpals</button>
+    </div>
+  </nav>
+
+  <!-- HERO / STATS -->
+  <section id="stats">
+    <div class="container">
+      <img src="logo.png" alt="SaaSpasse" class="logo" style="width: 60px; height: 60px; margin-bottom: 16px;">
+
+      <h1>Rétrospective éditoriale 2025</h1>
+      <p class="mono" style="font-size: 14px; margin-bottom: 32px;">49 semaines d'écriture en chiffres</p>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-number">49</div>
+          <div class="stat-label">Éditoriaux</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">66 762</div>
+          <div class="stat-label">Mots</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">~1 362</div>
+          <div class="stat-label">Mots / édito</div>
+        </div>
+      </div>
+
+      <div class="slider-container">
+        <div class="slider-header">
+          <span>
+            Temps pour taper tout ça
+            <span class="tooltip-trigger">i
+              <span class="tooltip-content">Les heures de recherche et de révision ont été exclues, sinon ça serait gênant.</span>
+            </span>
+          </span>
+          <span class="slider-result" id="typing-time">18.5 heures</span>
+        </div>
+        <input type="range" id="wpm-slider" min="30" max="100" value="60">
+        <div class="slider-labels">
+          <span>30 WPM (noob)</span>
+          <span id="wpm-display">60 WPM</span>
+          <span>100 WPM (cocaine)</span>
+        </div>
+        <div style="margin-top: 16px; font-size: 13px; display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;">
+          <span id="work-days">= 2.3 jours de travail</span>
+          <span>= ~220 pages de livre</span>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 32px;">Top 3 les plus populaires</h3>
+      <div class="top-3">
+        <div class="top-3-item">
+          <div class="top-3-rank">#1</div>
+          <div class="top-3-content">
+            <div class="top-3-title"><a href="https://saaspasse.beehiiv.com/p/super-murmure" target="_blank">Super murmure</a></div>
+            <div class="top-3-meta">2 mai 2025</div>
+          </div>
+          <div class="top-3-stats">647 opens · 130 clics email</div>
+        </div>
+        <div class="top-3-item">
+          <div class="top-3-rank">#2</div>
+          <div class="top-3-content">
+            <div class="top-3-title"><a href="https://saaspasse.beehiiv.com/p/tu-magasines-ils-courent" target="_blank">Tu magasines, ils courent</a></div>
+            <div class="top-3-meta">6 juin 2025</div>
+          </div>
+          <div class="top-3-stats">654 opens · 111 clics email</div>
+        </div>
+        <div class="top-3-item">
+          <div class="top-3-rank">#3</div>
+          <div class="top-3-content">
+            <div class="top-3-title"><a href="https://saaspasse.beehiiv.com/p/dans-la-poche" target="_blank">Dans la poche</a></div>
+            <div class="top-3-meta">7 novembre 2025</div>
+          </div>
+          <div class="top-3-stats">659 opens · 110 clics email</div>
+        </div>
+      </div>
+
+      <div class="extremes" style="margin-top: 32px;">
+        <div class="extreme-card long">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <i data-lucide="ruler" style="width: 20px; height: 20px;"></i>
+            <span style="font-size: 12px; text-transform: uppercase; font-family: 'Space Mono', monospace;">Le plus long</span>
+          </div>
+          <div class="extreme-title"><a href="https://saaspasse.beehiiv.com/p/skrrt-skrrt-sur-un-10-cents" target="_blank">Skrrt skrrt sur un 10 cents</a></div>
+          <div class="extreme-date">24 octobre 2025</div>
+          <div class="extreme-bar">
+            <div class="extreme-bar-fill" style="width: 100%;"></div>
+          </div>
+          <div class="extreme-count">3 000 mots</div>
+        </div>
+        <div class="extreme-card short">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <i data-lucide="ruler" style="width: 20px; height: 20px;"></i>
+            <span style="font-size: 12px; text-transform: uppercase; font-family: 'Space Mono', monospace;">Le plus court</span>
+          </div>
+          <div class="extreme-title"><a href="https://saaspasse.beehiiv.com/p/home-run" target="_blank">Home run</a></div>
+          <div class="extreme-date">12 septembre 2025</div>
+          <div class="extreme-bar">
+            <div class="extreme-bar-fill" style="width: 9.5%;"></div>
+          </div>
+          <div class="extreme-count">286 mots</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 32px;">Mots par mois</h3>
+      <div class="chart-wrapper">
+        <canvas id="mots-par-mois-chart" height="200"></canvas>
+      </div>
+      <p style="font-size: 13px; text-align: center; margin-top: 8px;">
+        Clairement j'ai pas fermé ma boîte en octobre, jeezus.
+      </p>
+    </div>
+  </section>
+
+  <!-- THÈMES & OBSESSIONS -->
+  <section id="themes">
+    <div class="container">
+      <h2><i data-lucide="target" style="width: 28px; height: 28px;"></i> Thèmes et obsessions</h2>
+
+      <h3 style="display: flex; align-items: center; gap: 8px;">
+        L'obsession de l'année
+        <span class="tooltip-trigger">i
+          <span class="tooltip-content">duh</span>
+        </span>
+      </h3>
+      <p style="font-size: 12px; margin-bottom: 16px; font-family: 'Space Mono', monospace; opacity: 0.7;">
+        Nombre de mentions par thème. Clique sur un thème pour voir les éditos populaires.
+      </p>
+      <div class="card">
+        <div class="bar-chart">
+          <div class="bar-row">
+            <span class="bar-label" onclick="openModal('ai')"><i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i> AI/IA</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div>
+            <span class="bar-value">775</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" onclick="openModal('marketing')"><i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i> Marketing</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 81%;"></div></div>
+            <span class="bar-value">632</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" onclick="openModal('startup')"><i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i> Startup/SaaS</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 50%;"></div></div>
+            <span class="bar-value">389</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" onclick="openModal('produit')"><i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i> Produit/Tech</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 41%;"></div></div>
+            <span class="bar-value">316</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" onclick="openModal('equipe')"><i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i> Équipe/RH</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 34%;"></div></div>
+            <span class="bar-value">264</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" onclick="openModal('croissance')"><i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i> Croissance</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 23%;"></div></div>
+            <span class="bar-value">180</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" onclick="openModal('quebec')"><i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i> Québec/Local</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 20%;"></div></div>
+            <span class="bar-value">156</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" onclick="openModal('fondateurs')"><i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i> Fondateurs</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 19%;"></div></div>
+            <span class="bar-value">149</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label" onclick="openModal('sante')"><i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i> Santé mentale</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 7%;"></div></div>
+            <span class="bar-value">58</span>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 32px;">Mentions AI/IA par mois dans les éditos</h3>
+      <div class="chart-wrapper">
+        <canvas id="ai-par-mois-chart" height="200"></canvas>
+      </div>
+
+      <div class="grid-2" style="margin-top: 24px;">
+        <div class="peak-section">
+          <div class="peak-title"><i data-lucide="trending-up" style="width: 18px; height: 18px;"></i> Peak #1: Avril-Mai</div>
+          <p style="font-size: 12px; margin-bottom: 12px;">Vertical AI, outils</p>
+          <div class="peak-list">
+            <div class="peak-item">
+              <div class="peak-item-title"><a href="https://saaspasse.beehiiv.com/p/vertical-ai" target="_blank">Vertical AI</a></div>
+              <div class="peak-item-meta">25 avril · 109 clicks</div>
+            </div>
+            <div class="peak-item">
+              <div class="peak-item-title"><a href="https://saaspasse.beehiiv.com/p/super-murmure" target="_blank">Super murmure</a></div>
+              <div class="peak-item-meta">2 mai · 130 clicks</div>
+            </div>
+            <div class="peak-item">
+              <div class="peak-item-title"><a href="https://saaspasse.beehiiv.com/p/rh-copilote-ai" target="_blank">RH & co-pilote AI</a></div>
+              <div class="peak-item-meta">23 mai · 88 clicks</div>
+            </div>
+          </div>
+        </div>
+        <div class="peak-section">
+          <div class="peak-title"><i data-lucide="trending-up" style="width: 18px; height: 18px;"></i> Peak #2: Octobre</div>
+          <p style="font-size: 12px; margin-bottom: 12px;">Agents, automatisation</p>
+          <div class="peak-list">
+            <div class="peak-item">
+              <div class="peak-item-title"><a href="https://saaspasse.beehiiv.com/p/agents-doubles" target="_blank">Agents doubles</a></div>
+              <div class="peak-item-meta">17 octobre · 59 clicks</div>
+            </div>
+            <div class="peak-item">
+              <div class="peak-item-title"><a href="https://saaspasse.beehiiv.com/p/skrrt-skrrt-sur-un-10-cents" target="_blank">Skrrt skrrt sur un 10 cents</a></div>
+              <div class="peak-item-meta">24 octobre · 84 clicks</div>
+            </div>
+            <div class="peak-item">
+              <div class="peak-item-title"><a href="https://saaspasse.beehiiv.com/p/une-bouchee-argile" target="_blank">Une bouchée d'argile</a></div>
+              <div class="peak-item-meta">10 octobre · 85 clicks</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-box" style="margin-top: 24px;">
+        <i data-lucide="lightbulb" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
+        <span><strong>Insight 2026:</strong> Faut plus de contenu sur go-to-market, ventes, croissance. Mais on ralentit pas sur l'AI.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAME DROP ALERT -->
+  <section id="names">
+    <div class="container">
+      <h2><i data-lucide="at-sign" style="width: 28px; height: 28px;"></i> Name drop alert</h2>
+
+      <h3>Personnes mentionnées</h3>
+      <div class="disclaimer">
+        <i data-lucide="alert-triangle" style="width: 16px; height: 16px; flex-shrink: 0;"></i>
+        <span>Le top 3 ressort beaucoup car impliqués dans la conférence SaaSpasse. Plusieurs éditos étaient sur la conf.</span>
+      </div>
+
+      <div class="person-grid">
+        <div class="person-card highlight">
+          <div class="person-rank">#1</div>
+          <div class="person-info">
+            <div class="person-name"><a href="https://www.linkedin.com/in/gisenberg" target="_blank">Greg Isenberg</a></div>
+            <div class="person-context">CEO Late Checkout</div>
+          </div>
+          <div class="person-count">10</div>
+        </div>
+        <div class="person-card highlight">
+          <div class="person-rank">#2</div>
+          <div class="person-info">
+            <div class="person-name"><a href="https://www.linkedin.com/in/juliensmith" target="_blank">Julien Smith</a></div>
+            <div class="person-context">Fondateur Practice</div>
+          </div>
+          <div class="person-count">8</div>
+        </div>
+        <div class="person-card highlight">
+          <div class="person-rank">#3</div>
+          <div class="person-info">
+            <div class="person-name"><a href="https://www.linkedin.com/in/bruno-marchand-63524728" target="_blank">Bruno Marchand</a></div>
+            <div class="person-context">Expert GTM, GoodBytes</div>
+          </div>
+          <div class="person-count">6</div>
+        </div>
+        <div class="person-card">
+          <div class="person-rank">#4</div>
+          <div class="person-info">
+            <div class="person-name"><a href="https://www.linkedin.com/in/olivier-falardeau-5513139b" target="_blank">Olivier Falardeau</a></div>
+            <div class="person-context">Co-fondateur Gaiia</div>
+          </div>
+          <div class="person-count">5</div>
+        </div>
+        <div class="person-card">
+          <div class="person-rank">#5</div>
+          <div class="person-info">
+            <div class="person-name"><a href="https://www.linkedin.com/in/philippegenois" target="_blank">Phil Genois</a></div>
+            <div class="person-context">Fondateur InputKit</div>
+          </div>
+          <div class="person-count">4</div>
+        </div>
+        <div class="person-card">
+          <div class="person-rank">#5</div>
+          <div class="person-info">
+            <div class="person-name"><a href="https://www.linkedin.com/in/jo%C3%ABlle-arsenault/" target="_blank">Joëlle</a></div>
+            <div class="person-context">Dir. marketing SaaSpasse</div>
+          </div>
+          <div class="person-count">4</div>
+        </div>
+        <div class="person-card">
+          <div class="person-rank">#5</div>
+          <div class="person-info">
+            <div class="person-name"><a href="https://www.linkedin.com/in/ericpinet" target="_blank">Eric Pinet</a></div>
+            <div class="person-context">CEO Unicorne</div>
+          </div>
+          <div class="person-count">4</div>
+        </div>
+        <div class="person-card">
+          <div class="person-rank">#5</div>
+          <div class="person-info">
+            <div class="person-name"><a href="https://www.linkedin.com/in/jean-gabriel-crevier-53904243" target="_blank">Jean Gab Crevier</a></div>
+            <div class="person-context">Co-fondateur Le Chiffre</div>
+          </div>
+          <div class="person-count">4</div>
+        </div>
+        <div class="person-card">
+          <div class="person-rank">#8</div>
+          <div class="person-info">
+            <div class="person-name"><a href="https://www.linkedin.com/in/vicky-boudreau-14762b14" target="_blank">Vicky Boudreau</a></div>
+            <div class="person-context">CEO Heylist</div>
+          </div>
+          <div class="person-count">3</div>
+        </div>
+        <div class="person-card">
+          <div class="person-rank">#8</div>
+          <div class="person-info">
+            <div class="person-name"><a href="https://www.linkedin.com/in/raffp" target="_blank">Raff Paquin</a></div>
+            <div class="person-context">Serial founder</div>
+          </div>
+          <div class="person-count">3</div>
+        </div>
+        <div class="person-card">
+          <div class="person-rank">#10</div>
+          <div class="person-info">
+            <div class="person-name"><a href="https://www.linkedin.com/in/plehoux" target="_blank">Phil Lehoux</a></div>
+            <div class="person-context">Co-fondateur Missive</div>
+          </div>
+          <div class="person-count">2</div>
+        </div>
+        <div class="person-card">
+          <div class="person-rank">#10</div>
+          <div class="person-info">
+            <div class="person-name"><a href="https://www.linkedin.com/in/nassim-nicholas-taleb" target="_blank">Nassim Taleb</a></div>
+            <div class="person-context">Auteur Black Swan</div>
+          </div>
+          <div class="person-count">2</div>
+        </div>
+      </div>
+
+      <div class="blague">
+        <i data-lucide="message-circle" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
+        <span>Phil Lehoux a battu Nassim Taleb. Let that sink in.</span>
+      </div>
+
+      <h3 style="margin-top: 32px;">Stack AI par mentions</h3>
+      <div class="stack-grid">
+        <div class="stack-item">
+          <div class="stack-name"><a href="https://chat.openai.com" target="_blank">ChatGPT</a></div>
+          <div class="stack-count">84</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-name"><a href="https://claude.ai" target="_blank">Claude</a></div>
+          <div class="stack-count">61</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-name"><a href="https://manus.app" target="_blank">Manus</a></div>
+          <div class="stack-count">37</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-name"><a href="https://superwhisper.com" target="_blank">Superwhisper</a></div>
+          <div class="stack-count">33</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-name"><a href="https://lovable.dev" target="_blank">Lovable</a></div>
+          <div class="stack-count">18</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-name"><a href="https://bolt.new" target="_blank">Bolt</a></div>
+          <div class="stack-count">9</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-name"><a href="https://lindy.ai" target="_blank">Lindy</a></div>
+          <div class="stack-count">8</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-name"><a href="https://cursor.com" target="_blank">Cursor</a></div>
+          <div class="stack-count">7</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-name"><a href="https://n8n.io" target="_blank">n8n</a></div>
+          <div class="stack-count">6</div>
+        </div>
+      </div>
+
+      <div class="note-box">
+        <i data-lucide="info" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
+        <span>En vrai, MA stack est basically en train de migrer au complet vers Claude Code. Et maintenant Voice dictation = <a href="https://saaspasse.beehiiv.com/p/tout-go-te-la-vanille" target="_blank">Monologue</a>.</span>
+      </div>
+
+      <h3 style="margin-top: 32px;">VCs mentionnés</h3>
+      <div class="card gold-wash">
+        <p style="font-size: 14px; margin-bottom: 12px;"><strong>Total VCs nommés : 2</strong></p>
+        <ul style="list-style: none; font-size: 13px;">
+          <li>• AQC Capital (commanditaire Conf)</li>
+          <li>• Telegraph Ventures (épisode podcast)</li>
+        </ul>
+      </div>
+
+      <div class="blague">
+        <i data-lucide="message-circle" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
+        <span>Ça paraît que j'ai pas de VCs sur ma cap table hein.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LINGUISTIQUE -->
+  <section id="langue">
+    <div class="container">
+      <h2><i data-lucide="languages" style="width: 28px; height: 28px;"></i> Linguistique</h2>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Niveau de lecture</h3>
+          <div class="reading-level">
+            <div class="level-value">12-14 ans</div>
+            <p style="font-size: 12px; margin-bottom: 12px;">Secondaire 3-5 · Score Flesch: 63.9</p>
+            <div class="level-bar">
+              <div class="level-marker"></div>
+            </div>
+            <div class="level-labels">
+              <span>Très facile</span>
+              <span>Moyen</span>
+              <span>Très difficile</span>
+            </div>
+          </div>
+          <p style="font-size: 13px; font-style: italic; text-align: center; margin-top: 16px;">
+            "Accessible. Pas du Harvard Business Review, pas du Journal de Montréal. Juste milieu."
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Ratio franglais</h3>
+          <div class="donut-container">
+            <div class="donut">
+              <div class="donut-hole">
+                <div class="donut-percent">2.8%</div>
+                <div class="donut-label">ANGLAIS</div>
+              </div>
+            </div>
+          </div>
+          <p style="font-size: 12px; text-align: center; font-style: italic;">
+            *Franglais implicite (job, fun, cool) non compté — explose ce chiffre sinon!
+          </p>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 32px;">Palmarès québécois</h3>
+      <div class="card purple-wash">
+        <div class="expression-list">
+          <div class="expression-row">
+            <span class="expression-word">pis</span>
+            <span><span class="expression-count">94</span> <span style="color: #1e40af;">⚜️⚜️⚜️</span></span>
+          </div>
+          <div class="expression-row">
+            <span class="expression-word">job</span>
+            <span><span class="expression-count">54</span> <span style="color: #1e40af;">⚜️</span></span>
+          </div>
+          <div class="expression-row">
+            <span class="expression-word">fun</span>
+            <span><span class="expression-count">48</span> <span style="color: #1e40af;">⚜️</span></span>
+          </div>
+          <div class="expression-row">
+            <span class="expression-word">cool</span>
+            <span><span class="expression-count">38</span> <span style="color: #1e40af;">⚜️</span></span>
+          </div>
+          <div class="expression-row">
+            <span class="expression-word">genre</span>
+            <span><span class="expression-count">37</span> <span style="color: #1e40af;">⚜️⚜️</span></span>
+          </div>
+          <div class="expression-row">
+            <span class="expression-word">niaiser / niaiseux</span>
+            <span><span class="expression-count">32</span> <span style="color: #1e40af;">⚜️⚜️⚜️</span></span>
+          </div>
+          <div class="expression-row">
+            <span class="expression-word">ben</span>
+            <span><span class="expression-count">21</span> <span style="color: #1e40af;">⚜️⚜️⚜️</span></span>
+          </div>
+          <div class="expression-row">
+            <span class="expression-word">blonde</span>
+            <span><span class="expression-count">16</span> <span style="color: #1e40af;">⚜️⚜️</span></span>
+          </div>
+          <div class="expression-row">
+            <span class="expression-word">pogner</span>
+            <span><span class="expression-count">12</span> <span style="color: #1e40af;">⚜️⚜️⚜️</span></span>
+          </div>
+          <div class="expression-row">
+            <span class="expression-word">crinqué</span>
+            <span><span class="expression-count">10</span> <span style="color: #1e40af;">⚜️⚜️⚜️</span></span>
+          </div>
+          <div class="expression-row">
+            <span class="expression-word">pantoute</span>
+            <span><span class="expression-count">9</span> <span style="color: #1e40af;">⚜️⚜️⚜️⚜️</span></span>
+          </div>
+        </div>
+        <p style="font-size: 12px; margin-top: 16px; font-style: italic;">
+          "Pis" = 94 fois. Take THAT Monsieur Boulay secondaire 4.
+        </p>
+      </div>
+
+      <h3 style="margin-top: 32px;">Mots signature</h3>
+      <div class="card">
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+          <span style="font-size: 24px; font-weight: 700;">temps <span class="mono" style="font-size: 14px; color: var(--purple);">(179)</span></span>
+          <span style="font-size: 18px;">chose <span class="mono" style="font-size: 12px; color: var(--purple);">(118)</span></span>
+          <span style="font-size: 18px;">produit <span class="mono" style="font-size: 12px; color: var(--purple);">(114)</span></span>
+          <span style="font-size: 17px;">monde <span class="mono" style="font-size: 12px; color: var(--purple);">(110)</span></span>
+          <span style="font-size: 16px;">conf <span class="mono" style="font-size: 12px; color: var(--purple);">(97)</span></span>
+          <span style="font-size: 15px;">audience <span class="mono" style="font-size: 12px; color: var(--purple);">(88)</span></span>
+          <span style="font-size: 14px;">scale <span class="mono" style="font-size: 11px; color: var(--purple);">(59)</span></span>
+          <span style="font-size: 14px;">attention <span class="mono" style="font-size: 11px; color: var(--purple);">(59)</span></span>
+          <span style="font-size: 14px;">folks <span class="mono" style="font-size: 11px; color: var(--purple);">(58)</span></span>
+        </div>
+        <p style="font-size: 13px; margin-top: 16px; text-align: center; font-style: italic;">
+          "Temps" = mot #1. Obsession cachée?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOOD-O-MÈTRE -->
+  <section id="mood">
+    <div class="container">
+      <h2><i data-lucide="heart-pulse" style="width: 28px; height: 28px;"></i> Mood-o-mètre</h2>
+
+      <h3>Vibe par mois</h3>
+      <div class="chart-wrapper">
+        <canvas id="mood-chart" height="220"></canvas>
+      </div>
+      <div class="mood-legend">
+        <div class="mood-legend-item">
+          <div class="mood-dot" style="background: #22c55e;"></div>
+          <span>On fire (70+)</span>
+        </div>
+        <div class="mood-legend-item">
+          <div class="mood-dot" style="background: #a3e635;"></div>
+          <span>Good vibes (50-69)</span>
+        </div>
+        <div class="mood-legend-item">
+          <div class="mood-dot" style="background: #facc15;"></div>
+          <span>Neutre (35-49)</span>
+        </div>
+        <div class="mood-legend-item">
+          <div class="mood-dot" style="background: #f87171;"></div>
+          <span>Down (<35)</span>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 24px;">
+        <div class="card teal-wash">
+          <h3 style="display: flex; align-items: center; gap: 8px;"><i data-lucide="flame" style="width: 18px; height: 18px;"></i> Pics d'énergie</h3>
+          <div class="edito-list">
+            <div class="edito-item">
+              <div>
+                <div class="edito-item-title"><a href="https://saaspasse.beehiiv.com/p/cartographier-le-chaos" target="_blank">Cartographier le chaos</a></div>
+                <div class="edito-item-meta">Mars · Boost printanier</div>
+              </div>
+            </div>
+            <div class="edito-item">
+              <div>
+                <div class="edito-item-title"><a href="https://saaspasse.beehiiv.com/p/chief-conference-officer" target="_blank">Chief Conference Officer</a></div>
+                <div class="edito-item-meta">Juillet · Pré-conf high</div>
+              </div>
+            </div>
+            <div class="edito-item">
+              <div>
+                <div class="edito-item-title"><a href="https://saaspasse.beehiiv.com/p/super-murmure" target="_blank">Super murmure</a></div>
+                <div class="edito-item-meta">Mai · Peak AI enthusiasm</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card rose-wash">
+          <h3 style="display: flex; align-items: center; gap: 8px;"><i data-lucide="cloud-rain" style="width: 18px; height: 18px;"></i> Creux</h3>
+          <div class="edito-list">
+            <div class="edito-item">
+              <div>
+                <div class="edito-item-title"><a href="https://saaspasse.beehiiv.com/p/la-solitude-du-founder" target="_blank">La solitude du founder</a></div>
+                <div class="edito-item-meta">Janvier · Introspection</div>
+              </div>
+            </div>
+            <div class="edito-item">
+              <div>
+                <div class="edito-item-title"><a href="https://saaspasse.beehiiv.com/p/aimable-moineau" target="_blank">Aimable moineau lève-tôt</a></div>
+                <div class="edito-item-meta">Juin · Stress pré-conf (PIRE MOIS)</div>
+              </div>
+            </div>
+            <div class="edito-item">
+              <div>
+                <div class="edito-item-title"><a href="https://saaspasse.beehiiv.com/p/home-run" target="_blank">Home run</a></div>
+                <div class="edito-item-meta">Septembre · Post-conf crash</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-box">
+        <h3 style="margin-bottom: 16px;">Pattern de l'année</h3>
+        <div class="pattern-flow">
+          <div class="pattern-step">
+            <i data-lucide="cloud" style="width: 24px; height: 24px;"></i>
+            <span>Introspection</span>
+            <span style="font-size: 11px; opacity: 0.7;">Janvier</span>
+          </div>
+          <span class="pattern-arrow">→</span>
+          <div class="pattern-step">
+            <i data-lucide="trending-up" style="width: 24px; height: 24px;"></i>
+            <span>Build up</span>
+            <span style="font-size: 11px; opacity: 0.7;">Mars-Juin</span>
+          </div>
+          <span class="pattern-arrow">→</span>
+          <div class="pattern-step">
+            <i data-lucide="party-popper" style="width: 24px; height: 24px;"></i>
+            <span>Event</span>
+            <span style="font-size: 11px; opacity: 0.7;">Août-Sept</span>
+          </div>
+          <span class="pattern-arrow">→</span>
+          <div class="pattern-step">
+            <i data-lucide="battery-low" style="width: 24px; height: 24px;"></i>
+            <span>Crash</span>
+            <span style="font-size: 11px; opacity: 0.7;">Oct+</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCÈNES D'OUVERTURE -->
+  <section id="hooks">
+    <div class="container">
+      <h2><i data-lucide="clapperboard" style="width: 28px; height: 28px;"></i> Scènes d'ouverture</h2>
+
+      <h3>Mises en scène mémorables</h3>
+      <div class="carousel">
+        <div class="carousel-track" id="carousel-track">
+          <div class="carousel-slide">
+            <div class="carousel-quote">
+              "Lundi 30 déc. 22:37 — Canté dans mon lazy-boy. Les yeux me piquent; je révise mes états financiers. Laptop s'éteint—batterie vide. Le reflet dans l'écran sale de mon Mac me juge"
+            </div>
+            <div class="carousel-source">— <a href="https://saaspasse.beehiiv.com/p/la-solitude-du-founder" target="_blank">La solitude du founder</a>, Janvier</div>
+          </div>
+          <div class="carousel-slide">
+            <div class="carousel-quote">
+              "Hiver 2022. YUL → DEN — Classe affaire—payé l'extra de ma poche. Why not!"
+            </div>
+            <div class="carousel-source">— <a href="https://saaspasse.beehiiv.com/p/demotion" target="_blank">Une démotion</a>, Avril</div>
+          </div>
+          <div class="carousel-slide">
+            <div class="carousel-quote">
+              "Je fixe la même ligne de texte pendant deux minutes sans rien processer. Mal de crâne, yeux qui brûlent, cette fatigue cognitive qui paralyse mon cerveau"
+            </div>
+            <div class="carousel-source">— <a href="https://saaspasse.beehiiv.com/p/super-murmure" target="_blank">Super murmure</a>, Mai</div>
+          </div>
+          <div class="carousel-slide">
+            <div class="carousel-quote">
+              "Mains moites, mi-chemin dans mon deadlift. La barre commence à pli—ben non, je lève pas si lourd que ça, relax."
+            </div>
+            <div class="carousel-source">— <a href="https://saaspasse.beehiiv.com/p/barbell" target="_blank">Barbell</a>, Septembre</div>
+          </div>
+          <div class="carousel-slide">
+            <div class="carousel-quote">
+              "C'est un après-midi d'été chaud au Lac-Beauport. Les bourges pagaient, leurs enfants pataugent…"
+            </div>
+            <div class="carousel-source">— <a href="https://saaspasse.beehiiv.com/p/skrrt-skrrt-sur-un-10-cents" target="_blank">Skrrt skrrt</a>, Octobre</div>
+          </div>
+        </div>
+        <div class="carousel-dots" id="carousel-dots">
+          <div class="carousel-dot active" data-index="0"></div>
+          <div class="carousel-dot" data-index="1"></div>
+          <div class="carousel-dot" data-index="2"></div>
+          <div class="carousel-dot" data-index="3"></div>
+          <div class="carousel-dot" data-index="4"></div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 32px;">Types de hooks</h3>
+      <div class="hooks-grid">
+        <div class="hook-item">
+          <span class="hook-type">Déclaration forte</span>
+          <span class="hook-percent">57%</span>
+        </div>
+        <div class="hook-item">
+          <span class="hook-type">Question</span>
+          <span class="hook-percent">16%</span>
+        </div>
+        <div class="hook-item">
+          <span class="hook-type">Mise en scène perso</span>
+          <span class="hook-percent">8%</span>
+        </div>
+        <div class="hook-item">
+          <span class="hook-type">Par Joëlle</span>
+          <span class="hook-percent">6%</span>
+        </div>
+        <div class="hook-item">
+          <span class="hook-type">Anecdote</span>
+          <span class="hook-percent">4%</span>
+        </div>
+        <div class="hook-item">
+          <span class="hook-type">Dialogue/Citation</span>
+          <span class="hook-percent">4%</span>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 32px;">Lieux évoqués</h3>
+      <div class="card">
+        <div class="lieux-list">
+          <div class="lieu-row">
+            <span class="lieu-icon"><i data-lucide="sofa" style="width: 18px; height: 18px;"></i></span>
+            <span class="lieu-name">Maison/repos</span>
+            <div class="lieu-bar"><div class="lieu-bar-fill" style="width: 100%;"></div></div>
+            <span class="lieu-count">24</span>
+          </div>
+          <div class="lieu-row">
+            <span class="lieu-icon"><i data-lucide="mic" style="width: 18px; height: 18px;"></i></span>
+            <span class="lieu-name">Événement</span>
+            <div class="lieu-bar"><div class="lieu-bar-fill" style="width: 79%;"></div></div>
+            <span class="lieu-count">19</span>
+          </div>
+          <div class="lieu-row">
+            <span class="lieu-icon"><i data-lucide="trees" style="width: 18px; height: 18px;"></i></span>
+            <span class="lieu-name">Nature/vacances</span>
+            <div class="lieu-bar"><div class="lieu-bar-fill" style="width: 71%;"></div></div>
+            <span class="lieu-count">17</span>
+          </div>
+          <div class="lieu-row">
+            <span class="lieu-icon"><i data-lucide="phone" style="width: 18px; height: 18px;"></i></span>
+            <span class="lieu-name">Call/meeting</span>
+            <div class="lieu-bar"><div class="lieu-bar-fill" style="width: 54%;"></div></div>
+            <span class="lieu-count">13</span>
+          </div>
+          <div class="lieu-row">
+            <span class="lieu-icon"><i data-lucide="plane" style="width: 18px; height: 18px;"></i></span>
+            <span class="lieu-name">Avion</span>
+            <div class="lieu-bar"><div class="lieu-bar-fill" style="width: 54%;"></div></div>
+            <span class="lieu-count">13</span>
+          </div>
+          <div class="lieu-row">
+            <span class="lieu-icon"><i data-lucide="podcast" style="width: 18px; height: 18px;"></i></span>
+            <span class="lieu-name">Podcast</span>
+            <div class="lieu-bar"><div class="lieu-bar-fill" style="width: 50%;"></div></div>
+            <span class="lieu-count">12</span>
+          </div>
+          <div class="lieu-row">
+            <span class="lieu-icon"><i data-lucide="laptop" style="width: 18px; height: 18px;"></i></span>
+            <span class="lieu-name">Bureau/ordi</span>
+            <div class="lieu-bar"><div class="lieu-bar-fill" style="width: 38%;"></div></div>
+            <span class="lieu-count">9</span>
+          </div>
+          <div class="lieu-row">
+            <span class="lieu-icon"><i data-lucide="dumbbell" style="width: 18px; height: 18px;"></i></span>
+            <span class="lieu-name">Gym</span>
+            <div class="lieu-bar"><div class="lieu-bar-fill" style="width: 8%;"></div></div>
+            <span class="lieu-count">2</span>
+          </div>
+          <div class="lieu-row">
+            <span class="lieu-icon"><i data-lucide="coffee" style="width: 18px; height: 18px;"></i></span>
+            <span class="lieu-name">Café/resto</span>
+            <div class="lieu-bar"><div class="lieu-bar-fill" style="width: 8%;"></div></div>
+            <span class="lieu-count">2</span>
+          </div>
+        </div>
+        <p style="font-size: 13px; margin-top: 16px; text-align: center; font-style: italic;">
+          Le lazy-boy = lieu signature
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANGLES MORTS -->
+  <section id="angles">
+    <div class="container">
+      <h2><i data-lucide="eye-off" style="width: 28px; height: 28px;"></i> Angles morts</h2>
+
+      <div class="comparison">
+        <div class="comparison-box good">
+          <div class="comparison-title"><i data-lucide="check" style="width: 16px; height: 16px;"></i> Bien couvert</div>
+          <ul class="comparison-list">
+            <li><span>Sales/ventes</span> <span class="mono">107</span></li>
+            <li><span>Operations/ops</span> <span class="mono">46</span></li>
+            <li><span>Hiring/embauche</span> <span class="mono">37</span></li>
+            <li><span>Support</span> <span class="mono">35</span></li>
+            <li><span>Exit/acquisition</span> <span class="mono">27</span></li>
+            <li><span>Pricing</span> <span class="mono">21</span></li>
+          </ul>
+        </div>
+        <div class="comparison-box bad">
+          <div class="comparison-title"><i data-lucide="x" style="width: 16px; height: 16px;"></i> Angles morts</div>
+          <ul class="comparison-list">
+            <li><span>NPS</span> <span class="mono">0</span></li>
+            <li><span>Cohort analysis</span> <span class="mono">0</span></li>
+            <li><span>Unit economics</span> <span class="mono">2</span></li>
+            <li><span>PLG</span> <span class="mono">1</span></li>
+            <li><span>User research</span> <span class="mono">1</span></li>
+            <li><span>Remote/hybride</span> <span class="mono">1</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note-box" style="margin-top: 24px;">
+        <i data-lucide="hand" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
+        <span>Je suis peut-être le pape, mais je suis loin d'être l'expert dans tout ça. Si vous voulez venir m'en jaser pis qu'on fasse du contenu sur l'infolettre, <a href="https://www.linkedin.com/in/frankln/" target="_blank">hit me up</a>.</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SAASPALS -->
+  <section id="saaspals">
+    <div class="container">
+      <h2><i data-lucide="heart" style="width: 28px; height: 28px;"></i> SaaSpals</h2>
+
+      <div class="card gold-wash" style="margin-bottom: 24px;">
+        <p style="font-size: 15px; margin-bottom: 12px;">Ces <strong>ballers-shot-callers</strong> supportent directement le projet SaaSpasse. Merci BIG TIME.</p>
+        <p style="font-size: 13px; opacity: 0.8;"><a href="https://saaspasse.beehiiv.com/c/saaspals" target="_blank">Devenir SaaSpal →</a></p>
+      </div>
+
+      <div class="saaspals-grid">
+        <a href="https://www.linkedin.com/in/benoît-devilliers/?originalSubdomain=ca" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Benoît Devilliers&backgroundColor=ECEBF1" alt="Avatar de Benoît Devilliers" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Benoît Devilliers</div>
+            <div class="saaspal-role">Founder @ Nolow</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/marvisais/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Martin Arvisais&backgroundColor=ECEBF1" alt="Avatar de Martin Arvisais" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Martin Arvisais</div>
+            <div class="saaspal-role">Marketing & Technologies @ Gestion Traiteur</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/geoffreyblanc/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Geoffrey Blanc&backgroundColor=ECEBF1" alt="Avatar de Geoffrey Blanc" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Geoffrey Blanc</div>
+            <div class="saaspal-role">General Manager @ Cyberimpact</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/jolyane-couture-10499590/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Jolyane Couture&backgroundColor=ECEBF1" alt="Avatar de Jolyane Couture" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Jolyane Couture</div>
+            <div class="saaspal-role">Product Owner @ C-Cube</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/thameurtriki/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Thameur Triki&backgroundColor=ECEBF1" alt="Avatar de Thameur Triki" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Thameur Triki</div>
+            <div class="saaspal-role">MBA/Sales Director</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/jeff-pelletier-hr-marketing-passionate-happy-to-connect/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Jeff Pelletier&backgroundColor=ECEBF1" alt="Avatar de Jeff Pelletier" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Jeff Pelletier</div>
+            <div class="saaspal-role">Digital Strategy Manager @ Folks</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/jeanphilippefortincantin/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Jean-Philippe Fortin-Cantin&backgroundColor=ECEBF1" alt="Avatar de Jean-Philippe Fortin-Cantin" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Jean-Philippe Fortin-Cantin</div>
+            <div class="saaspal-role">Head of Marketing @ DashThis</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/sebasfourn/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Sébastien Fournier&backgroundColor=ECEBF1" alt="Avatar de Sébastien Fournier" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Sébastien Fournier</div>
+            <div class="saaspal-role">Full-Stack Developer @ Kimoby</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/michaelcarpentier/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Michael Carpentier&backgroundColor=ECEBF1" alt="Avatar de Michael Carpentier" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Michael Carpentier</div>
+            <div class="saaspal-role">Co-fondateur/Leader produit @ Fyri</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/rafbm/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Rafael Masson&backgroundColor=ECEBF1" alt="Avatar de Rafael Masson" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Rafael Masson</div>
+            <div class="saaspal-role">Co-fondateur/CTO @ Missive</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/olivier-rousseau-30509627/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Olivier Rousseau&backgroundColor=ECEBF1" alt="Avatar de Olivier Rousseau" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Olivier Rousseau</div>
+            <div class="saaspal-role">Co-Founder @ Activity Messenger</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/phillanglois/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Phil Langlois&backgroundColor=ECEBF1" alt="Avatar de Phil Langlois" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Phil Langlois</div>
+            <div class="saaspal-role">Customer Success @ Missive</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/andrebp/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=André Beauchamp-Pitre&backgroundColor=ECEBF1" alt="Avatar de André Beauchamp-Pitre" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">André Beauchamp-Pitre</div>
+            <div class="saaspal-role">Associé/directeur @ Mangrove</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/etiennebauger-typescript/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Etienne B. Auger&backgroundColor=ECEBF1" alt="Avatar de Etienne B. Auger" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Etienne B. Auger</div>
+            <div class="saaspal-role">Fractional CTO @ zbranch</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/marie-sophie-dionne-cpa-auditrice/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Marie-Sophie Dionne&backgroundColor=ECEBF1" alt="Avatar de Marie-Sophie Dionne" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Marie-Sophie Dionne</div>
+            <div class="saaspal-role">Cofondatrice @ Nexam</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/nicholas-m-99739390/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Nicholas Milot&backgroundColor=ECEBF1" alt="Avatar de Nicholas Milot" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Nicholas Milot</div>
+            <div class="saaspal-role">Co-fondateur @ Yack</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/nicolasjean/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Nicolas Jean&backgroundColor=ECEBF1" alt="Avatar de Nicolas Jean" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Nicolas Jean</div>
+            <div class="saaspal-role">CFO @ SIGMA-RH</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/jonathan-schmidt-05b6413/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Jonathan Schmidt&backgroundColor=ECEBF1" alt="Avatar de Jonathan Schmidt" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Jonathan Schmidt</div>
+            <div class="saaspal-role">Cofondateur & développeur @ Wiimag</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/jpsicard/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=JP Sicard&backgroundColor=ECEBF1" alt="Avatar de JP Sicard" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">JP Sicard</div>
+            <div class="saaspal-role">Cofounder @ Ton Équipier</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/david-dube/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=David Dubé&backgroundColor=ECEBF1" alt="Avatar de David Dubé" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">David Dubé</div>
+            <div class="saaspal-role">Directeur Services-Conseils @ Tink</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/mehenni/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Samuel Mehenni&backgroundColor=ECEBF1" alt="Avatar de Samuel Mehenni" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Samuel Mehenni</div>
+            <div class="saaspal-role">Founder @ Bounds Studio</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/bruno-provencher/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Bruno Provencher&backgroundColor=ECEBF1" alt="Avatar de Bruno Provencher" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Bruno Provencher</div>
+            <div class="saaspal-role">Chief of staff @ Sagard</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/stephbedard/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Stéphanie Bédard&backgroundColor=ECEBF1" alt="Avatar de Stéphanie Bédard" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Stéphanie Bédard</div>
+            <div class="saaspal-role">Fractional CMO @ Axelr</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/marcandrecampagna/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Marc Campagna&backgroundColor=ECEBF1" alt="Avatar de Marc Campagna" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Marc Campagna</div>
+            <div class="saaspal-role">cofounder + ceo @ gaiia</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/sbibeau/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Sébastien Bibeau&backgroundColor=ECEBF1" alt="Avatar de Sébastien Bibeau" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Sébastien Bibeau</div>
+            <div class="saaspal-role">cofondateur @ Ton équipier</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/alexishuard/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Alexis Huard&backgroundColor=ECEBF1" alt="Avatar de Alexis Huard" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Alexis Huard</div>
+            <div class="saaspal-role">directeur des opérations @ rum&code</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/jeromerobert/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Jérôme Robert&backgroundColor=ECEBF1" alt="Avatar de Jérôme Robert" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Jérôme Robert</div>
+            <div class="saaspal-role">PDG @ Otonom Solution</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/philippethimineur/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Philippe Thimineur&backgroundColor=ECEBF1" alt="Avatar de Philippe Thimineur" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Philippe Thimineur</div>
+            <div class="saaspal-role">sales & marketing director @ DeepSight</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/maxime-tchagou-88a96a205/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Maxime Tchagou&backgroundColor=ECEBF1" alt="Avatar de Maxime Tchagou" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Maxime Tchagou</div>
+            <div class="saaspal-role">mobile developer @ Kimoby</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/jmlacroix/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Jean-Michel Lacroix&backgroundColor=ECEBF1" alt="Avatar de Jean-Michel Lacroix" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Jean-Michel Lacroix</div>
+            <div class="saaspal-role">founder & CTO @ Capian</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/kevenl" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Kevin Lefebvre&backgroundColor=ECEBF1" alt="Avatar de Kevin Lefebvre" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Kevin Lefebvre</div>
+            <div class="saaspal-role">ingénierie logiciel @ Shopify / k11e</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/bruno-marchand-63524728/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Bruno Marchand&backgroundColor=ECEBF1" alt="Avatar de Bruno Marchand" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Bruno Marchand</div>
+            <div class="saaspal-role">Founder @ GoodBytes Studio</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/my-laroche/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Mylène Laroche&backgroundColor=ECEBF1" alt="Avatar de Mylène Laroche" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Mylène Laroche</div>
+            <div class="saaspal-role">Co-fondatrice @ Flambeau</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/benoitquimper/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Benoit Quimper&backgroundColor=ECEBF1" alt="Avatar de Benoit Quimper" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Benoit Quimper</div>
+            <div class="saaspal-role">Partner & VP Digital Products @ Attraction</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/raffp/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Raff Paquin&backgroundColor=ECEBF1" alt="Avatar de Raff Paquin" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Raff Paquin</div>
+            <div class="saaspal-role">Co-Founder @ iwn studio</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/dboitard/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=David Boitard&backgroundColor=ECEBF1" alt="Avatar de David Boitard" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">David Boitard</div>
+            <div class="saaspal-role">CEO @ Altee</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/stephaneguerin/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Stéphane Guérin&backgroundColor=ECEBF1" alt="Avatar de Stéphane Guérin" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Stéphane Guérin</div>
+            <div class="saaspal-role">fondateur @ DashThis</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/charles-thibault-a5551352/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Charles Thibault&backgroundColor=ECEBF1" alt="Avatar de Charles Thibault" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Charles Thibault</div>
+            <div class="saaspal-role">co-founder @ supeer.io</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/levesquesamuel/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Samuel Lévesque&backgroundColor=ECEBF1" alt="Avatar de Samuel Lévesque" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Samuel Lévesque</div>
+            <div class="saaspal-role">spécialiste solutions infonuagique @ Microsoft</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/damiendargent/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Damien Dargent&backgroundColor=ECEBF1" alt="Avatar de Damien Dargent" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Damien Dargent</div>
+            <div class="saaspal-role">consultant en gestion de projets</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/francoislevassseur/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=François Levasseur&backgroundColor=ECEBF1" alt="Avatar de François Levasseur" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">François Levasseur</div>
+            <div class="saaspal-role">VP Global Alliances @ Equisoft</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/francislacoste/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Francis Lacoste&backgroundColor=ECEBF1" alt="Avatar de Francis Lacoste" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Francis Lacoste</div>
+            <div class="saaspal-role">VPE & CTO Coach @ The VPE Coach</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/iamlfb/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Louis-Félix Binette&backgroundColor=ECEBF1" alt="Avatar de Louis-Félix Binette" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Louis-Félix Binette</div>
+            <div class="saaspal-role">directeur général @ Main QC</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/kelvin-jara-67a96312a/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Kelvin Jara&backgroundColor=ECEBF1" alt="Avatar de Kelvin Jara" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Kelvin Jara</div>
+            <div class="saaspal-role">lead developer @ Biztree</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/aachevalier/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Andrée-Anne Chevalier&backgroundColor=ECEBF1" alt="Avatar de Andrée-Anne Chevalier" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Andrée-Anne Chevalier</div>
+            <div class="saaspal-role">présidente @ Vigilance Santé</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/benjamin-valcourt-b24246127/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Benjamin Valcourt&backgroundColor=ECEBF1" alt="Avatar de Benjamin Valcourt" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Benjamin Valcourt</div>
+            <div class="saaspal-role"></div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/jean-luc-brisebois/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Jean-Luc Brisebois&backgroundColor=ECEBF1" alt="Avatar de Jean-Luc Brisebois" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Jean-Luc Brisebois</div>
+            <div class="saaspal-role">@ Alvéole</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/franck-clerget/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Franck Clerget&backgroundColor=ECEBF1" alt="Avatar de Franck Clerget" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Franck Clerget</div>
+            <div class="saaspal-role">@ Tail'ed</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/robert-fania-2277b833/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Robert Fania&backgroundColor=ECEBF1" alt="Avatar de Robert Fania" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Robert Fania</div>
+            <div class="saaspal-role">@ Beehive Softwares</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/antoineameunier/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Antoine Meunier&backgroundColor=ECEBF1" alt="Avatar de Antoine Meunier" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Antoine Meunier</div>
+            <div class="saaspal-role">@ Ovet</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/maxtrudel" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Max Trudel&backgroundColor=ECEBF1" alt="Avatar de Max Trudel" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Max Trudel</div>
+            <div class="saaspal-role">@ Evolia</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/etiennemorneau/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Étienne Morneau&backgroundColor=ECEBF1" alt="Avatar de Étienne Morneau" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Étienne Morneau</div>
+            <div class="saaspal-role">@ Apéro</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/rami-jarjour/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Rami Jarjour&backgroundColor=ECEBF1" alt="Avatar de Rami Jarjour" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Rami Jarjour</div>
+            <div class="saaspal-role">@ Ugowork</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/guillaumeharvey/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Guillaume Harvey&backgroundColor=ECEBF1" alt="Avatar de Guillaume Harvey" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Guillaume Harvey</div>
+            <div class="saaspal-role">@ Patrii Cloud</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/jonathanthivierge/" target="_blank" class="saaspal-card">
+          <img class="saaspal-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=JonathanThivierge&backgroundColor=ECEBF1" alt="Avatar de Jonathan Thivierge" loading="lazy">
+          <div class="saaspal-info">
+            <div class="saaspal-name">Jonathan Thivierge</div>
+            <div class="saaspal-role">@ Planitou</div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TELL ME MORE -->
+  <section id="tellmemore">
+    <div class="container">
+      <h2><i data-lucide="message-circle" style="width: 28px; height: 28px;"></i> Tell me more</h2>
+      <p style="font-size: 13px; margin-bottom: 16px;">Vote pour les sujets qui t'intéressent pour 2026!</p>
+
+      <div class="card tally-container" style="min-height: 400px;">
+        <iframe data-tally-src="https://tally.so/embed/44QZPA?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="400" frameborder="0" marginheight="0" marginwidth="0" title="Sujets 2026 - SaaSpasse"></iframe>
+        <script>
+          var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w;s.onload=v;s.onerror=v;d.body.appendChild(s);}
+        </script>
+        <noscript>
+          <a href="https://tally.so/r/44QZPA" target="_blank" class="tally-fallback">Vote sur Tally</a>
+        </noscript>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p><a href="https://saaspasse.com" target="_blank">SaaSpasse</a> 2025 — Rétrospective éditoriale</p>
+      <p style="margin-top: 8px;">Fait avec Claude Code et le peu de jus de cerveau qui me reste</p>
+    </div>
+  </footer>
+
+  <!-- Modal pour les thèmes -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <span class="modal-title" id="modal-title">Thème</span>
+        <button class="modal-close" onclick="closeModal()"><i data-lucide="x" style="width: 20px; height: 20px;"></i></button>
+      </div>
+      <div class="modal-body" id="modal-body">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Slider WPM
+    const slider = document.getElementById('wpm-slider');
+    const typingTime = document.getElementById('typing-time');
+    const wpmDisplay = document.getElementById('wpm-display');
+    const workDays = document.getElementById('work-days');
+    const totalWords = 66762;
+
+    let skiAnimationTriggered = false;
+
+    slider.addEventListener('input', function() {
+      const wpm = parseInt(this.value);
+      const minutes = totalWords / wpm;
+      const hours = (minutes / 60).toFixed(1);
+      const days = (hours / 8).toFixed(1);
+
+      typingTime.textContent = hours + ' heures';
+      wpmDisplay.textContent = wpm + ' WPM';
+      workDays.textContent = '= ' + days + ' jours de travail';
+
+      // Ski animation when reaching cocaine (100 WPM)
+      if (wpm >= 98 && !skiAnimationTriggered) {
+        skiAnimationTriggered = true;
+        triggerSkiAnimation();
+      }
+      if (wpm < 95) {
+        skiAnimationTriggered = false;
+      }
+    });
+
+    function triggerSkiAnimation() {
+      const container = document.createElement('div');
+      container.innerHTML = `
+        <span class="skier">⛷️</span>
+        <span class="skier">⛷️</span>
+        <span class="skier">⛷️</span>
+      `;
+      document.body.appendChild(container);
+      setTimeout(() => container.remove(), 1500);
+    }
+
+    // Smooth scroll
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // SaaSpals music easter egg
+    let musicBtnShown = false;
+    let saaspalsIframe = null;
+    let musicBtn = null;
+    let musicPlaying = false;
+    const saaspalsSection = document.getElementById('saaspals');
+
+    const saaspalsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !musicBtnShown) {
+          musicBtnShown = true;
+
+          // Show music control button (not playing by default)
+          musicBtn = document.createElement('button');
+          musicBtn.id = 'music-control';
+          musicBtn.innerHTML = '<i data-lucide="play" style="width: 20px; height: 20px;"></i>';
+          musicBtn.title = 'Play some tunes';
+          musicBtn.setAttribute('aria-label', 'Jouer la musique');
+          musicBtn.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            background: var(--dark);
+            color: white;
+            border: 3px solid var(--dark);
+            box-shadow: 4px 4px 0px var(--purple);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: all 0.1s;
+          `;
+          document.body.appendChild(musicBtn);
+          lucide.createIcons();
+
+          // Create audio element
+          const audio = new Audio('baller.mp3');
+          audio.loop = true;
+
+          // Toggle music on click
+          musicBtn.addEventListener('click', () => {
+            if (!musicPlaying) {
+              // Start music
+              audio.play();
+              musicBtn.innerHTML = '<i data-lucide="pause" style="width: 20px; height: 20px;"></i>';
+              musicBtn.setAttribute('aria-label', 'Arrêter la musique');
+              musicBtn.style.background = 'var(--purple)';
+              musicBtn.style.boxShadow = '4px 4px 0px var(--dark)';
+            } else {
+              // Stop music
+              audio.pause();
+              musicBtn.innerHTML = '<i data-lucide="play" style="width: 20px; height: 20px;"></i>';
+              musicBtn.setAttribute('aria-label', 'Jouer la musique');
+              musicBtn.style.background = 'var(--dark)';
+              musicBtn.style.boxShadow = '4px 4px 0px var(--purple)';
+            }
+            musicPlaying = !musicPlaying;
+            lucide.createIcons();
+          });
+
+          // Hover effect
+          musicBtn.addEventListener('mouseenter', () => {
+            musicBtn.style.transform = 'translate(2px, 2px)';
+            musicBtn.style.boxShadow = '2px 2px 0px ' + (musicPlaying ? 'var(--dark)' : 'var(--purple)');
+          });
+          musicBtn.addEventListener('mouseleave', () => {
+            musicBtn.style.transform = 'translate(0, 0)';
+            musicBtn.style.boxShadow = '4px 4px 0px ' + (musicPlaying ? 'var(--dark)' : 'var(--purple)');
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    saaspalsObserver.observe(saaspalsSection);
+
+    // Carousel
+    const track = document.getElementById('carousel-track');
+    const dots = document.querySelectorAll('.carousel-dot');
+    let currentSlide = 0;
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentSlide = index;
+        updateCarousel();
+      });
+    });
+
+    function updateCarousel() {
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+    }
+
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % 5;
+      updateCarousel();
+    }, 5000);
+
+    // Modal data
+    const themeData = {
+      ai: {
+        title: 'Top éditos AI/IA',
+        items: [
+          { title: 'Super murmure', url: 'https://saaspasse.beehiiv.com/p/super-murmure', meta: '2 mai · 130 clicks' },
+          { title: 'Vertical AI', url: 'https://saaspasse.beehiiv.com/p/vertical-ai', meta: '25 avril · 109 clicks' },
+          { title: 'RH & co-pilote AI', url: 'https://saaspasse.beehiiv.com/p/rh-copilote-ai', meta: '23 mai · 88 clicks' }
+        ]
+      },
+      marketing: {
+        title: 'Top éditos Marketing',
+        items: [
+          { title: 'Tu magasines, ils courent', url: 'https://saaspasse.beehiiv.com/p/tu-magasines-ils-courent', meta: '6 juin · 111 clicks' },
+          { title: 'Audience hijacking', url: 'https://saaspasse.beehiiv.com/p/audience-hijacking-p1', meta: '28 février · 90 clicks' },
+          { title: 'Piliers de messaging', url: 'https://saaspasse.beehiiv.com/p/piliers-de-messaging', meta: '28 mars · 87 clicks' }
+        ]
+      },
+      startup: {
+        title: 'Top éditos Startup/SaaS',
+        items: [
+          { title: 'Dans la poche', url: 'https://saaspasse.beehiiv.com/p/dans-la-poche', meta: '7 novembre · 110 clicks' },
+          { title: 'All about CROISSANCE', url: 'https://saaspasse.beehiiv.com/p/all-about-croissance', meta: '5 septembre · 105 clicks' },
+          { title: 'Une démotion', url: 'https://saaspasse.beehiiv.com/p/demotion', meta: '11 avril · 94 clicks' }
+        ]
+      },
+      produit: {
+        title: 'Top éditos Produit/Tech',
+        items: [
+          { title: 'Agents doubles', url: 'https://saaspasse.beehiiv.com/p/agents-doubles', meta: '17 octobre · 59 clicks' },
+          { title: 'Voler le trône des géants', url: 'https://saaspasse.beehiiv.com/p/voler-le-trone-des-geants', meta: '3 octobre · 68 clicks' },
+          { title: 'Créer > consommer', url: 'https://saaspasse.beehiiv.com/p/creer-consommer', meta: '16 mai · 55 clicks' }
+        ]
+      },
+      equipe: {
+        title: 'Top éditos Équipe/RH',
+        items: [
+          { title: 'RH & co-pilote AI', url: 'https://saaspasse.beehiiv.com/p/rh-copilote-ai', meta: '23 mai · 88 clicks' },
+          { title: 'Jeunes loups & gentil Yack', url: 'https://saaspasse.beehiiv.com/p/jeunes-loups-gentil-yack', meta: '22 août · 93 clicks' },
+          { title: 'Cicatrices de startup', url: 'https://saaspasse.beehiiv.com/p/cicatrices-de-startup', meta: '29 août · 79 clicks' }
+        ]
+      },
+      croissance: {
+        title: 'Top éditos Croissance',
+        items: [
+          { title: 'All about CROISSANCE', url: 'https://saaspasse.beehiiv.com/p/all-about-croissance', meta: '5 septembre · 105 clicks' },
+          { title: 'Le retour du G', url: 'https://saaspasse.beehiiv.com/p/le-retour-du-g', meta: '25 juillet · 98 clicks' },
+          { title: 'Gravité numérique', url: 'https://saaspasse.beehiiv.com/p/gravite-numerique', meta: '30 mai · 81 clicks' }
+        ]
+      },
+      quebec: {
+        title: 'Top éditos Québec/Local',
+        items: [
+          { title: 'La solitude du founder', url: 'https://saaspasse.beehiiv.com/p/la-solitude-du-founder', meta: '10 janvier · 126 clicks' },
+          { title: 'Skrrt skrrt sur un 10 cents', url: 'https://saaspasse.beehiiv.com/p/skrrt-skrrt-sur-un-10-cents', meta: '24 octobre · 84 clicks' },
+          { title: 'Un château et un dragon', url: 'https://saaspasse.beehiiv.com/p/un-ch-teau-et-un-dragon-0dc3', meta: '15 août · 83 clicks' }
+        ]
+      },
+      fondateurs: {
+        title: 'Top éditos Fondateurs',
+        items: [
+          { title: 'La solitude du founder', url: 'https://saaspasse.beehiiv.com/p/la-solitude-du-founder', meta: '10 janvier · 126 clicks' },
+          { title: 'Une démotion', url: 'https://saaspasse.beehiiv.com/p/demotion', meta: '11 avril · 94 clicks' },
+          { title: 'Relax, Bip Bip', url: 'https://saaspasse.beehiiv.com/p/relax-bip-bip', meta: '31 janvier · 91 clicks' }
+        ]
+      },
+      sante: {
+        title: 'Top éditos Santé mentale',
+        items: [
+          { title: 'La solitude du founder', url: 'https://saaspasse.beehiiv.com/p/la-solitude-du-founder', meta: '10 janvier · 126 clicks' },
+          { title: 'Pas le temps de niaiser', url: 'https://saaspasse.beehiiv.com/p/pas-le-temps-de-niaiser', meta: '21 février · 60 clicks' },
+          { title: 'Barbell', url: 'https://saaspasse.beehiiv.com/p/barbell', meta: '26 septembre · 78 clicks' }
+        ]
+      }
+    };
+
+    function openModal(theme) {
+      const data = themeData[theme];
+      if (!data) return;
+
+      document.getElementById('modal-title').textContent = data.title;
+      document.getElementById('modal-body').innerHTML = data.items.map(item => `
+        <div class="modal-item">
+          <div class="modal-item-title"><a href="${item.url}" target="_blank">${item.title}</a></div>
+          <div class="modal-item-meta">${item.meta}</div>
+        </div>
+      `).join('');
+
+      document.getElementById('modal-overlay').classList.add('active');
+      lucide.createIcons();
+    }
+
+    function closeModal(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('modal-overlay').classList.remove('active');
+    }
+
+    // Escape key to close modal
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // Charts
+    const chartColors = {
+      purple: '#853DFF',
+      lightPurple: '#AD80FF',
+      dark: '#070A26',
+      green: '#22c55e',
+      lime: '#a3e635',
+      yellow: '#facc15',
+      red: '#f87171'
+    };
+
+    // Mots par mois chart
+    new Chart(document.getElementById('mots-par-mois-chart'), {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'],
+        datasets: [{
+          data: [6231, 5822, 5056, 6538, 7187, 5945, 2746, 3534, 3215, 8703, 7114, 3874],
+          backgroundColor: chartColors.purple,
+          borderColor: chartColors.dark,
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              afterLabel: function(context) {
+                const topByMonth = {
+                  0: 'Top: La solitude du founder',
+                  1: 'Top: Audience hijacking',
+                  2: 'Top: Cartographier le chaos',
+                  3: 'Top: Une démotion',
+                  4: 'Top: Super murmure',
+                  5: 'Top: Tu magasines, ils courent',
+                  6: 'Top: Chief Conference Officer',
+                  7: 'Top: Cicatrices de startup',
+                  8: 'Top: Home run',
+                  9: 'Top: Une bouchée d\'argile',
+                  10: 'Top: Dans la poche',
+                  11: 'Top: Programmation vibration'
+                };
+                return topByMonth[context.dataIndex];
+              }
+            }
+          }
+        },
+        scales: {
+          y: { beginAtZero: true, grid: { color: '#ddd' } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+
+    // AI par mois chart
+    new Chart(document.getElementById('ai-par-mois-chart'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'],
+        datasets: [{
+          data: [33, 69, 55, 110, 101, 92, 23, 13, 25, 134, 61, 57],
+          borderColor: chartColors.purple,
+          backgroundColor: chartColors.lightPurple + '40',
+          borderWidth: 3,
+          fill: true,
+          tension: 0.3,
+          pointBackgroundColor: chartColors.purple,
+          pointBorderColor: chartColors.dark,
+          pointBorderWidth: 2,
+          pointRadius: 5
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, grid: { color: '#ddd' } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+
+    // Mood chart
+    const moodScores = [34, 45, 74, 37, 66, 32, 100, 72, 32, 40, 46, 36];
+    const moodColors = moodScores.map(score => {
+      if (score >= 70) return chartColors.green;
+      if (score >= 50) return chartColors.lime;
+      if (score >= 35) return chartColors.yellow;
+      return chartColors.red;
+    });
+
+    new Chart(document.getElementById('mood-chart'), {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'],
+        datasets: [{
+          data: moodScores,
+          backgroundColor: moodColors,
+          borderColor: chartColors.dark,
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, max: 100, grid: { color: '#ddd' } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
